@@ -1,0 +1,38 @@
+/* pages/addCompany/addCompany.wxss */
+.index-page{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60%;
+}
+.search-wrap{
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 200;
+}
+.search-wrap .textinput{
+  display: inline-block;
+  width: 460rpx;
+  padding: 10rpx 60rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular,PingFang SC;
+  color: rgba(30,30,30,0.5);
+  background:#F3F3F3;
+  border-radius:10rpx;
+}
+.search-wrap .search_input1{
+  position: absolute;
+  width: 32rpx;
+  height: 32rpx;
+  left: 10rpx;
+  z-index: 100;
+}
+.search-wrap .search_input2{
+  position: absolute;
+  width: 48rpx;
+  height: 48rpx;
+  right: 10rpx;
+  z-index: 100;
+}

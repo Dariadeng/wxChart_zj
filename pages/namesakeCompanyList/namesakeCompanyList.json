@@ -1,0 +1,8 @@
+{
+  "usingComponents": {},
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#FC7B81",
+  "navigationBarTitleText": "同名人物公司列表",
+  "navigationBarTextStyle": "white"
+}

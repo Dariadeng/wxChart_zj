@@ -1,0 +1,164 @@
+<!--法律诉讼详情页-->
+<view class="loading" wx:if="{{isLoad}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+</view>
+<view class="noData" wx:if="{{isNoData}}">
+    <view class="weui-loadmore .weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+    </view>
+</view>
+<view class="lawDetail-page">
+    <view class="company-introduce">
+      <!-- <view class="introduce-bd mrg-b-12">
+          <view class="name">小米科技有限责任公司与国家知识产权局二审行政判决书</view>
+      </view> -->
+      <view class="law-content-wrap mrg-b-10">
+        <view class="law-content"
+              bindtap="toLawDetail">
+        <view class="content-title">{{mainEntity.name || '-'}}</view>
+        <view class="content-main">
+          <view class="text">裁判文书号</view>
+          <view >{{mainEntity.caseNumber || '-'}}</view>
+        </view>
+        <view class="content-main">
+          <view class="text">案由</view>
+          <view >{{mainEntity.causeOfAction || '-'}}</view>
+        </view>
+        <view class="content-main">
+          <view class="text">审结日期</view>
+          <view >{{mainEntity.decisionDate || ''}}</view>
+        </view>
+        <view class="content-main">
+          <view class="text">文书类型</view>
+          <view >{{mainEntity.caseType || '-'}}</view>
+        </view>
+        <view class="content-main">
+          <view class="text">判决法院</view>
+          <view >{{mainEntity.courthouseName || '-'}}</view>
+        </view>
+        <view class="content-main">
+          <view class="text">法院所在地</view>
+          <view >{{mainEntity.courthouseProvince + mainEntity.courthouseDistrict || '-'}}</view>
+        </view>
+        <view class="content-main">
+          <view class="text">审判程序</view>
+          <view >{{mainEntity.caseStep || '-'}}</view>
+        </view>
+        <view wx:for="{{partyList}}"
+            wx:key="item">
+           <view wx:if="{{item.roleName == '原告'||item.roleName == '被告'}}">
+            <view class="content-main">
+              <view class="text">当事人名称</view>
+              <view style="color:{{item.LPISubjectRole && item.LPISubjectRole[0].kgTypeMain === 'Company'?'#40A9FF': '#1E1E1E'}}"
+                    data-name="{{item.LPISubjectRole[0].name}}"
+                    id="{{item.LPISubjectRole[0].kgId}}"
+                    bindtap="toDetailPage">
+                  {{item.LPISubjectRole && item.LPISubjectRole[0].name || '-'}}
+              </view>
+            </view>
+            <view class="content-main" wx:if="{{item.winLoseType}}">
+              <view class="text">胜败诉角色</view>
+              <view >{{item.winLoseType || "其他" }}</view>
+            </view>
+            <view class="content-main" wx:if="{{item.winLoseType}}">
+              <view class="text" wx:if="{{item.winLoseType === '胜诉方'}}">总收款金额</view>
+              <view class="text" wx:else>总赔款金额</view>
+              <view >{{item.totalPayment}}</view>
+            </view>
+           </view>   
+        </view>  
+        <!-- <view class="split-line-bt mrg-t-10"></view> -->
+       </view>       
+     </view>
+   </view>
+   <!-- 判决项 -->
+   <view class="company-info">
+      <view class="split-line-bt mrg-b-12"></view>  
+      <view class="law-content-wrap">
+       <view class="content-title"  
+             style="color:{{verdictItemList.length?'#1E1E1E':'rgba(30,30,30,.5)'}}">
+             判决项</view>
+       <view class="law-content"
+        wx:for="{{verdictItemList}}"
+        wx:key="item">
+        <view class="content-main">
+          <view class="text">判决项编号</view>
+          <view >{{ index + 1 }}</view>
+        </view>
+        <view class="content-main">
+          <view class="text">给付方</view>
+          <view style="color:{{item.JDDPayerRole && item.JDDPayerRole[0].kgTypeMain === 'Company'?'#40A9FF': '#1E1E1E'}}"
+              data-name="{{item.JDDPayerRole[0].name}}"
+              id="{{item.JDDPayerRole[0].kgId}}"
+              bindtap="toDetailPage">
+              {{item.JDDPayerRole && item.JDDPayerRole[0].name || '-'}}
+          </view>
+        </view>
+        <view class="content-main">
+          <view class="text">被给付方</view>
+          <view style="color:{{item.kgTypeMain === 'Company'?'#40A9FF': '#1E1E1E'}}"
+              id="{{item.JDDPayerRole[0].kgId}}"
+              data-name="{{item.JDDPayeeRole[0].name}}"
+              bindtap="toDetailPage">
+              {{item.JDDPayeeRole && item.JDDPayeeRole[0].name || '-'}}</view>
+        </view>
+        <view class="content-main">
+          <view class="text">赔偿类型</view>
+          <view >{{item.debtType || '-'}}</view>
+        </view>
+        <view class="content-main">
+          <view class="text">赔偿金额</view>
+          <view >{{item.debtValue}}</view>
+        </view>
+        <view class="split-line-bt mrg-tb-14" wx:if="{{index !== verdictItemList.length-1}}"></view>  
+       </view>      
+      </view>
+   </view>
+   <!-- 判决结果 -->
+   <view class="company-info">
+      <view class="split-line-bt mrg-b-12"></view>  
+      <view class="law-content-wrap">
+       <view class="content-title">当事人角色</view>
+       <view class="law-content"
+       wx:for="{{verdictResultList}}"
+       wx:key="item">
+        <view class="content-main">
+          <view class="text">当事人名称</view>
+          <view style="color:{{item.kgTypeMain ===  'Company'?'#40A9FF': '#1E1E1E'}}"
+                id="{{item.kgId}}"
+                data-name="{{item.name}}"
+                bindtap="toDetailPage">{{item.name || '-'}}</view>
+        </view>
+        <view class="content-main">
+          <view class="text">当事人角色</view>
+          <view >{{item.roleName || '-'}}</view>
+        </view>
+        <!-- <view class="content-main" wx:if="{{item.isShowRole}}">
+          <view class="text">胜败诉角色</view>
+          <view >{{item.nameWinLose}}</view>
+        </view>
+        <view class="content-main" wx:if="{{item.isShowRole}}">
+          <view class="text" wx:if="{{item.nameWinLose === '胜诉方'}}">总收款金额</view>
+          <view class="text" wx:else>总赔款金额</view>
+          <view >{{item.sumOfPaymentCredit.value}}</view>
+        </view> -->
+        <view class="split-line-bt mrg-tb-14" wx:if="{{index !== verdictResultList.length-1}}"></view>  
+       </view>     
+      </view>
+   </view>
+   <!-- 文书正文 -->
+   <view class="company-info">
+      <view class="split-line-bt mrg-b-12"></view> 
+      <view class="law-content mrg-b-18">
+        <view class="title mrg-b-12">文书正文</view> 
+        <view class="loading flex_center" wx:if="{{isDocumentLoad}}">
+           <view class="wx_dot_loading"></view>
+        </view>
+        <view class="mian-bd" wx:else>
+           <rich-text nodes="{{documentData}}"></rich-text>
+        </view>
+      </view>
+   </view>
+</view>
+

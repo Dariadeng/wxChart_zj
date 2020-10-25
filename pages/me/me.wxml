@@ -1,0 +1,56 @@
+<!--用户信息页面-->
+<view class="user-page">
+   <view class="info-wrap">
+       <button 
+          open-type="getUserInfo" 
+          bindgetuserinfo="onGetUserInfo"
+          class="userinfo-avatar"
+          style="background-image: url({{avatarUrl}})"
+        ></button>
+      <!-- <image class="images" src="{{avatarUrl}}"></image> -->
+      <view class="user_right">
+          <view bindtap="toLoginPage" wx:if="{{!isLogin}}">立即登录</view>
+          <view wx:if="{{isLogin}}">
+            <view class="nickName">{{userInfo.nickName}}</view>
+            <view class="vip">
+              <view class="vip-wrap">
+                <!-- <view class="vip_mark vip_member" wx:if="{{isVipMember}}">VIP会员</view> -->
+                <view class="vip_mark normal_member">普通会员</view>
+                <!-- <view class="vip_text flex_between" catchtap="toVipPage">
+                  <image class="img_vip" 
+                  src="{{isVipMember ? '../../images/icon_vip_selected.png': '../../images/icon_vip_normal.png'}}"></image>
+                  {{isVipMember ? '查看VIP权限': '开通VIP'}} 
+                </view> -->
+              </view>
+              <!-- <view class="vip_time" wx:if="{{isVipMember}}">
+                  会员有效期至：{{vipExpireAt}}
+              </view> -->
+            </view>
+          </view>
+      </view>
+   </view>
+   <view class="menu-wrap">
+      <view class="menu-item" bindtap="toMonitorPage">
+        <view class="flex_between">
+           <image class="images1" src="../../images/icon_jiankong.png"></image>
+           我的监控
+        </view>
+        <view class="title-cell title-cell_in-access"></view>
+      </view>
+      <view class="menu-item" bindtap="toEventPage">
+        <view class="flex_between">
+          <image class="images1" src="../../images/icon_yujingzhongxin.png"></image>
+          涉诉预警
+        </view>
+        <view class="title-cell title-cell_in-access"></view>
+      </view>
+      <view class="menu-item" bindtap="toAboutUsPage">
+        <view class="flex_between">
+          <image class="images1" src="../../images/icon_lianxi.png"></image>
+          联系我们
+        </view>
+        <view class="title-cell title-cell_in-access"></view>
+      </view>
+   </view>
+   <view class="out-wrap" bindtap="outLogin" wx:if="{{isLogin}}">退出登录</view>
+</view>

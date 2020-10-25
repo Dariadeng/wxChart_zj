@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+    "range-slider": "/component/rangeSlider/rangeSlider"
+  },
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#FC7B81",
+  "navigationBarTitleText": "自建规则",
+  "navigationBarTextStyle": "white"
+}

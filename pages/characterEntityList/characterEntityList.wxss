@@ -1,0 +1,109 @@
+/* pages/namesakeList/namesakeList.wxss */
+.entity-page{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background:#F3F3F3;
+  overflow-y: auto;
+}
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 40rpx;
+  background: #fff;
+}
+.search-wrap{
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 200;
+}
+.search-wrap .textinput{
+  display: inline-block;
+  width: 460rpx;
+  padding: 10rpx 60rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular,PingFang SC;
+  color: rgba(30,30,30,0.5);
+  background:#F3F3F3;
+  border-radius:10rpx;
+}
+.search-wrap .search_input1{
+  position: absolute;
+  width: 32rpx;
+  height: 32rpx;
+  left: 10rpx;
+  z-index: 100;
+}
+.search-wrap .search_input2{
+  position: absolute;
+  width: 48rpx;
+  height: 48rpx;
+  right: 10rpx;
+  z-index: 100;
+}
+.cancle-btn{
+    font-size:32rpx;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:#FD7D83
+}
+.content{
+  margin: 12rpx 30rpx;
+}
+.total{
+  margin-bottom: 12rpx;
+  font-size: 24rpx;
+  font-family:PingFangSC-Regular;
+  line-height: 34rpx;
+  color:rgba(165,165,165,1);
+  opacity:1;
+}
+.person-list{
+   background: #fff;
+   margin-bottom: 20rpx;
+   padding: 20rpx 30rpx;
+   font-size: 24rpx;
+  font-family:PingFang SC;
+  font-weight:400;
+  line-height: 36rpx;
+  color:rgba(89,89,89,1);
+  opacity:1;
+}
+.person-list .title{
+  padding-bottom: 10rpx;
+}
+.person-list .person-name{
+  font-size: 30rpx;
+  font-family:PingFang SC;
+  font-weight:bold;
+  line-height: 42rpx;
+  color:rgba(0,0,0,0.65);
+  opacity:1;
+}
+.result_noData{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: initial;
+  align-items: center;
+  flex-direction: column;
+}
+.result_noData .img_data{
+  margin-top: 40%;
+  width: 240rpx;
+  height: 240rpx;
+}
+.tips1,
+.tips2{
+  font-size: 28rpx;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(0,0,0,0.45);
+  line-height: 40fr;
+}
+.tips2{
+  font-size: 24rpx;
+   margin-top: 26rpx;
+}

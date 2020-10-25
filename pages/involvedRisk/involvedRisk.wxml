@@ -1,0 +1,190 @@
+<!--企业涉诉风险分析页-->
+<view class="loading" wx:if="{{isLoad}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+</view>
+<view class="risk-page" wx:if="{{!isLoad}}">
+  <!-- <my-msgDialog bind:close="closeRiskDialog" wx:if="{{exceedLimit}}">
+      <view slot="content" style="padding:10rpx 88rpx 34rpx">
+        <view class="flex_center">成为VIP会员</view>
+        即可继续添加企业集合监控
+      </view>
+      <view slot="myBtn">
+        <view class="add_vip_btn flex_center" catchtap="toVipPage">加入VIP会员</view>
+      </view>
+  </my-msgDialog>
+  <my-msgDialog bind:close="closeRiskDialog" wx:if="{{vipExceedLimit}}">
+      <view slot="content"  style="padding:10rpx 40rpx 34rpx">
+        <view>尊敬的VIP用户：</view>
+        您企业集合的监控名额已达上限，您可以调整已监控的企业集合数量再试。
+      </view>
+      <view slot="myBtn">
+        <view class="vip_btn flex_between">
+          <view class="btn_cancle flex_center" catchtap="closeRiskDialog">我再想想</view>
+          <view class="btn_adjust flex_center" catchtap="toMintorPage">去调整我的监控</view>
+        </view>
+      </view>
+  </my-msgDialog> -->
+  <view class="group_title">
+      <text class="one_line_omit">{{coreName}}</text>
+      <text class="title_block block_blue" wx:if="{{isCompany == 1}}">单体企业</text>
+      <text class="title_block block_orange" wx:else>企业集合</text>
+  </view>
+  <view class="chart-container" wx:if="{{!isNoData}}">
+      <canvas canvas-id="ringCanvas" class="left canvas" style="height:180px" bindtouchstart="touchHandler"></canvas>
+      <view class="right">
+        <view class="monitor">
+           <view wx:if="{{!isShare}}">
+            <text class="noAdd" 
+                  bindtap="bindAddMonitor"
+                  wx:if="{{!isMonitor}}">+监控</text>
+            <text class="add" bindtap="bindCancleMonitor" wx:else>已监控</text>
+           </view>
+        </view>
+         <view class="title">风险因子得分</view>
+         <view class="legend-wrap">
+          <view>
+            <view class="legend-bd">
+              <view class="legend-cell" style="background:#FFB6A3"></view>
+              <text class="name">案件总数：{{legendData.caseTotals}}分</text>
+            </view>
+            <view class="legend-bd">
+              <view class="legend-cell" style="background:#FDC667"></view>
+              <text class="name">被告占比：{{legendData.defendantRatio}}分</text>
+            </view>
+            <view class="legend-bd">
+              <view class="legend-cell" style="background:#88C3F8"></view>
+              <text class="name">败诉赔款：{{legendData.creditForLose}}分</text>
+            </view>
+            <view class="legend-bd">
+              <view class="legend-cell" style="background:#8593F3"></view>
+              <text class="name">平均赔款：{{legendData.averageForLose}}分</text>
+            </view>
+          </view>
+         </view>
+      </view>
+  </view>
+  <view class="noData" wx:if="{{isNoData}}">
+      <view class="weui-loadmore .weui-loadmore_line">
+          <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+      </view>
+  </view>
+  <!-- 企业集合维度涉案分析 -->
+  <view class="analysis-info">
+    <view class="title" wx:if="{{!isNoData}}">
+      <text wx:if="{{isCompany == 1}}">单体企业维度涉案分析</text> 
+      <text wx:else>企业集合维度涉案分析</text>
+      <view class="title-img">
+        <!-- <view bindtap="openDialog" class="flex_between">
+          <image class="images1" src="../../images/icon_set.png"></image>
+          设置
+        </view> -->
+      </view>
+    </view>
+    <view class="content" wx:if="{{!isNoData}}">
+       <view class="content-mian-bd">
+         <view class="main-item">
+           <view class="mrg-b-3">{{mainEntityData.lawsuitCountTotal}}</view>
+           <view class="text">案件数量</view>
+         </view>
+         <view class="split-line"></view>
+         <view class="main-item" style="padding-left: 30rpx;">
+            <view class="mrg-b-3">{{mainEntityData.lawsuitCreditTotal.value}}</view>
+            <view class="text">涉案金额</view>
+         </view>
+       </view>
+       <view class="content-mian-bd">
+         <view class="main-item">
+           <view class="mrg-b-3">{{mainEntityData.lawsuitCountAsPlaintiff}}</view>
+           <view class="text">担任原告的数量</view>
+         </view>
+         <view class="split-line"></view>
+         <view class="main-item" style="padding-left: 30rpx;">
+            <view class="mrg-b-3">{{mainEntityData.lawsuitCountAsDefendant}}</view>
+            <view class="text mrg-b-3">担任被告的数量</view>
+         </view>
+       </view>
+       <view class="content-mian-bd">
+         <view class="main-item">
+           <view class="mrg-b-3">{{mainEntityData.lawsuitCountAsThirdParty}}</view>
+           <view class="text">担任第三方的数量</view>
+         </view>
+         <view class="split-line"></view>
+         <view class="main-item" style="padding-left: 30rpx;">
+            <view class="mrg-b-3">{{mainEntityData.lawsuitCountAsOther}}</view>
+            <view class="text">担任其他角色的数量</view>
+         </view>
+       </view>
+       <view class="content-mian-bd">
+         <view class="main-item">
+           <view class="mrg-b-3">{{mainEntityData.lawsuitCountForWin}}</view>
+           <view class="text">胜诉数量</view>
+         </view>
+         <view class="split-line"></view>
+         <view class="main-item" style="padding-left: 30rpx;">
+            <view class="mrg-b-3">{{mainEntityData.lawsuitCountForLose}}</view>
+            <view class="text">败诉数量</view>
+         </view>
+       </view>
+       <view class="main-cell mrg-b-5">
+          <view class="mrg-b-3">{{mainEntityData.lawsuitCountForOther}}</view>
+          <view class="text">其他结果数量</view>
+       </view>
+       <view class="content-mian-bd">
+         <view class="main-item">
+           <view class="mrg-b-3">{{mainEntityData.lawsuitCreditForWin.value}}</view>
+           <view class="text">胜诉收款金额</view>
+         </view>
+         <view class="split-line"></view>
+         <view class="main-item" style="padding-left: 30rpx;">
+            <view class="mrg-b-3">{{mainEntityData.lawsuitCreditForLose.value}}</view>
+            <view class="text">败诉赔款金额</view>
+         </view>
+       </view>
+    </view>
+    <view class='bottom flex_between' 
+      wx:if="{{!isShare}}"
+      bindtap="toCaseListPage">
+      <view class='left' wx:if="{{isCompany == 1}}">
+         查看单体企业案件列表
+      </view>
+      <view class='left' wx:else>
+         查看集合案件列表
+      </view>
+      <view class='right title-cell_in-access'>
+      </view>
+    </view>
+  </view>
+  <!-- 设置弹出菜单 -->
+  <view class="weui-demo-dialog {{istrue ? 'weui-demo-dialog_show' : ''}}">
+    <view class="weui-mask" bindtap="closeDialog"></view>
+    <view class="weui-actionsheet {{istrue ? 'weui-actionsheet_toggle' : ''}}" catchtap="stopEvent">
+        <view class="weui-actionsheet__title">
+            <view class="weui-actionsheet__title-list">风险因子列表</view>
+            <view class="weui-actionsheet__title-text">风险指数占比</view>
+        </view>
+        <view class="weui-actionsheet__menu">
+            <view class="weui-actionsheet__cell">
+               <view class="left">原告占比</view>
+               <!-- {{mainEntityData.lawsuitCountAsPlaintiff/mainEntityData.lawsuitCountTotal}} -->
+               <view class="right">0.1</view>
+            </view>
+            <view class="weui-actionsheet__cell">
+               <view class="left">被告占比</view>
+               <view class="right">0.25</view>
+            </view>
+            <view class="weui-actionsheet__cell">
+               <view class="left">败诉占比</view>
+               <view class="right">0.25</view>
+            </view>
+            <view class="weui-actionsheet__cell">
+               <view class="left">败诉付款总额</view>
+               <view class="right">0.4</view>
+            </view>
+        </view>
+        <view class="weui-actionsheet__action">
+            <view class="weui-actionsheet__btn" bindtap="closeDialog">取消</view>
+        </view>
+    </view>
+  </view>
+</view>

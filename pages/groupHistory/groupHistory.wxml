@@ -1,0 +1,85 @@
+<!----添加企业历史记录---->
+<view class="history-page">
+    <view id='tabs' wx:if="{{showTab}}">
+      <view class='tabs-box'>
+        <block wx:for="{{['企业集合','单体企业']}}" wx:key="index">
+          <view class="tabs-item {{currentTabIndex == index ? 'selected' : '' }}"      bindtap='onTabsItemTap'data-index='{{index}}'>
+            {{item}}      
+          </view>
+        </block>
+      </view>
+    </view>
+    <view class="content-container">
+      <view hidden='{{currentTabIndex != 0}}'>
+        <view class="content" 
+              wx:if="{{groupHistoryData.length}}"
+              wx:for="{{groupHistoryData}}"
+              wx:key="item"
+              data-id="{{index}}"
+              bindtap='select'>
+            <view class='lefts'>
+                <block wx-if="{{!item.checked}}">
+                  <view class='icon_none'></view>
+                </block>
+                <block wx-if="{{item.checked}}">
+                  <icon type="success" size="16" color="red"/>
+                </block>
+            </view> 
+            <view class="rights flex_between">
+              <view>{{item.memberName}}</view>
+              <view class="text" style="white-space:nowrap;margin-left:10px;">
+              {{item.createDate}}</view>
+            </view>
+        </view>
+      </view>
+      <view hidden='{{currentTabIndex != 1}}'>
+        <view class="content" 
+              wx:if="{{companyHistoryData.length}}"
+              wx:for="{{companyHistoryData}}"
+              wx:key="item"
+              data-id="{{index}}"
+              bindtap='select'>
+            <view class='lefts'>
+                <block wx-if="{{!item.checked}}">
+                  <view class='icon_none'></view>
+                </block>
+                <block wx-if="{{item.checked}}">
+                  <icon type="success" size="16" color="red"/>
+                </block>
+            </view> 
+            <view class="rights flex_between">
+              <view>{{item.memberName}}</view>
+              <view class="text" style="white-space:nowrap;margin-left:10px;">
+              {{item.createDate}}</view>
+            </view>
+        </view>
+      </view>
+    </view>
+    <view class='bottom flex_between'>
+    <view class='left flex_start'>
+      <block wx:if="{{select_all}}">
+        <view bindtap='select_none' class='flex_start'>
+          <icon type="success" size="16" color="red" />
+          <view class="mrg-l-5">
+            取消全选
+          </view>
+        </view>
+      </block>
+      <block wx:if="{{!select_all}}">
+        <view bindtap='select_all' class='flex_start'>
+          <view class='select_none'>
+          </view>
+          <view class="mrg-l-5">
+            全选
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class='right flex_end'>
+      <view bindtap='bindDeleteGroupMember' class='sure'>
+         删除
+      </view>
+    </view>
+  </view>
+</view>
+

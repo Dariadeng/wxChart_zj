@@ -1,0 +1,44 @@
+<!--模糊匹配的公司结果页面-->
+<view class="loading" wx:if="{{isLoad}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+</view>
+<view class="result_noData" wx:if="{{isNoData}}">
+    <image class="img_data" src="../../images/icon_noData.png"></image>
+    <view class="tips1 mrg-t-20">没有搜索到相关结果</view>
+    <view class="tips2">“输入准确关键词，试一试”</view>
+</view>
+<view class="result-page" wx:if="{{!isLoad && !isNoData}}">
+   <view class="company-item"
+        wx:for="{{companyList}}" wx:key="item" 
+        id="{{item.result['@id']}}"
+        data-name="{{item.result.name}}"
+        bindtap="toDetailPage"            
+        hover-class="company-cell_active">
+    <view class="company-introduce">
+      <view class="introduce-bd mrg-b-18">
+          <view class="name-wrap">
+           <text wx:for="{{item.result.comName}}"
+                 wx:for-item="nameItem" 
+                 wx:key="nameItem"
+                 class="{{nameItem == keyName ? 'gjz' : 'name'}}">{{nameItem}}</text>
+          </view>
+          <view class="status">{{item.result.saicRegistrationStatus}}</view>
+      </view>
+      <view class="introduce-bd mrg-b-5">
+          <view class="main-item">
+            <view class="text mrg-b-5">法人代表人</view>
+            <view>{{item.result.nameLegalRepresentative}}</view>
+          </view>
+          <view class="main-item">
+            <view class="text mrg-b-5">注册资本</view>
+            <view>{{item.result.saicRegistrationCapital.value}}</view>
+          </view>
+          <view class="main-item">
+            <view class="text mrg-b-5">成立日期</view>
+            <view>{{item.result.foundingDate || '-'}}</view>
+          </view>
+      </view>
+    </view>
+   </view>
+</view>

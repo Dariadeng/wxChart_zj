@@ -1,0 +1,218 @@
+/* pages/involvedRisk/involvedRisk.wxss */
+.risk-page{
+     position: relative;
+}
+.risk-page .title{
+  font-size:36rpx;
+  padding: 20rpx 40rpx;
+  font-family:PingFangSC-Semibold,PingFang SC;
+  font-weight:600;
+  color:rgba(30,30,30,1);
+  line-height:50rpx;
+}
+.group_title{
+    display: flex;
+    display: -webkit-flex;
+    align-items: center;
+    padding: 30rpx 40rpx 0;
+    font-size:32rpx;
+    font-family:PingFangSC-Medium,PingFang SC;
+    font-weight:500;
+    color:rgba(30,30,30,1);
+    line-height:44rpx;
+}
+.chart-container{
+  display: flex;
+  justify-content: space-between;
+  padding:0 20rpx 20rpx;
+  border-bottom: 4rpx solid #F3F3F3;
+}
+.setting{
+  width:28rpx;
+  height:28rpx;
+  background:rgba(0,0,0,0.65);
+}
+.legend-wrap{
+  display: flex;
+  align-items: center;
+  width: 300rpx;
+}
+.right{
+  display: flex;
+  flex-direction: column;
+  width: 300rpx;
+}
+.right .title{
+  padding: 0 0 10rpx;
+  font-size:13px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(30,30,30,1);
+  line-height:18px;
+}
+.legend-bd{
+   display: flex;
+   align-items: center;
+   color: rgba(30,30,30,0.5);
+}
+.legend-wrap .legend-cell{
+  width:24rpx;
+  height:20rpx;
+  background:rgba(242,166,150,1);
+  border-radius:4rpx;
+  margin-right: 20rpx;
+}
+.legend-wrap .name{
+  font-size:26rpx;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(30,30,30,.5);
+  line-height:36rpx;
+}
+.analysis-info{
+  padding: 20rpx 40rpx 80rpx;
+}
+.analysis-info .title{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  padding: 20rpx 0;
+  font-size:32rpx;
+}
+.title .title-img{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size:26rpx;
+  font-weight:400;
+  color:rgba(0,0,0,0.65);
+  line-height:36rpx;
+}
+.title-img .images1{
+   width: 32rpx;
+   height: 32rpx;
+   margin-right: 16rpx;
+}
+.monitor{
+  padding: 34rpx 0;
+  font-size:26rpx;
+  margin-right: 20rpx;
+}
+.monitor .noAdd{
+  display: inline-block;
+  text-align: center;
+  width:92rpx;
+  color:rgba(64,169,255,1);
+  border-radius: 4rpx;
+  border:2rpx solid rgba(64,169,255,1);
+}
+.monitor .add{
+  display: inline-block;
+  text-align: center;
+  width:88rpx;
+  color: #D3D4D7;
+  border-radius: 4rpx;
+  border: 2rpx solid #D3D4D7;
+}
+.content-mian-bd{
+  align-items: center;
+  margin-bottom: 0;
+}
+.analysis-info .content-main{
+    display: flex;
+    margin-bottom: 16rpx;
+    font-size:28rpx;
+}
+.analysis-info .content-main .text{
+   width: 200rpx;
+   color: rgba(0,0,0,.5);
+}
+.analysis-info .content{
+  margin-bottom: 36rpx;
+}
+.caselist-btn{
+  width:654rpx;
+  height:80rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 80rpx;
+  margin: 0 auto;
+  background:rgba(0,0,0,0.2);
+  box-shadow:0rpx 20rpx 20rpx 0rpx rgba(113,11,11,0.1);
+  border-radius:8rpx;
+}
+.bottom{
+  width: 100%;
+  height: 106rpx;
+  border:1px solid rgba(233,233,233,1);
+  background:rgba(250,250,250,1);
+  position: fixed;
+  left: 0rpx;
+  bottom: 0rpx;
+}
+.bottom .left{
+  margin-left: 38rpx;
+  font-size:32rpx;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(0,0,0,0.65);
+  line-height:44rpx;
+}
+.bottom .right{
+  position: relative;
+  margin-right: 28rpx;
+}
+.bottom .right::after{
+  content: " ";
+  display: inline-block;
+  height: 16rpx;
+  width: 16rpx;
+  border-width:  4rpx 4rpx 0 0;
+  border-color: #b2b2b2;
+  border-style: solid;
+  -webkit-transform: matrix(.71,.71,-.71,.71,0,0);
+  transform: matrix(.71,.71,-.71,.71,0,0);
+  top: -4rpx;
+  position: absolute;
+  top: 50%;
+  margin-top: -10rpx;
+  right: 20rpx;
+}
+.flex_between{
+  display: flex;
+  display: -webkit-flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add_vip_btn{
+  width: 100%;
+  height: 100rpx;
+  font-size:16px;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:rgba(255,255,255,1);
+  line-height:22px;
+  background:rgba(251,123,128,1);
+  border-radius:0px 0px 4px 4px;
+}
+.vip_btn{
+   height: 100rpx;
+   border-top: 1px solid #E5E5E5; 
+   font-size:16px;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    line-height:22px;
+}
+.vip_btn .btn_cancle{
+    width: 50%;
+    height: 100%;
+    border-right: 1px solid #E5E5E5; 
+    animation-fill-mode:rgba(0,0,0,1);
+}
+.vip_btn .btn_adjust{
+  width: 50%;
+  color:rgba(64,169,255,1);
+}

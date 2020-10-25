@@ -1,0 +1,18 @@
+<!--联系我们页面-->
+<view class="about-page">
+   <view class="top">
+      <view class="logo flex_center">
+        <image src="../../images/icon_logo.png" class="img-logo1"></image>
+      </view>
+      <view class="version flex_center title">知君小程序版本号：v0.3</view>
+   </view>
+   <view class="contact-details">
+      <view class="title">联系方式</view>
+      <view class="way">官方邮箱 ：recruit@ruyi.ai</view>
+      <view class="way">商务合作 ：biz@ruyi.ai 罗女士</view>
+      <view class="way">意见反馈 ：support@ruyi.ai</view>
+   </view>
+   <view class="company-logo flex_center">
+      <image src="../../images/logo_ruyi.png" class="img-logo2"></image>
+   </view>
+</view>

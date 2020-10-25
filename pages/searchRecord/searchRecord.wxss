@@ -1,0 +1,90 @@
+/* pages/searchRecord/searchRecord.wxss */
+.record-page{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background:#F3F3F3;
+}
+.top-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 40rpx;
+  background: #fff;
+}
+.top-container .cancle-btn{
+    font-size:28rpx;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:#FD7D83;
+}
+.record-wrap{
+    margin-top:20rpx;
+    background: #fff;
+}
+.record-wrap .noDataTip{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+.record-wrap .record-nav{
+   border-top:1px solid rgba(233,233,233,1);
+   border-bottom:1px solid rgba(233,233,233,1);
+   padding: 15rpx 20rpx;
+}
+.record-wrap .content{
+    padding: 0 40rpx;
+    font-size:28rpx;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(0,0,0,0.65);
+    line-height:40rpx;
+}
+.content .content-item{
+    padding: 20rpx 0;
+}
+.search-wrap{
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 200;
+}
+.search-wrap .textinput{
+  display: inline-block;
+  width: 460rpx;
+  padding: 10rpx 60rpx;
+  font-size: 28rpx;
+  font-family: PingFangSC-Regular,PingFang SC;
+  color: rgba(30,30,30,0.5);
+  background:#F3F3F3;
+  border-radius:10rpx;
+}
+.search-wrap .search_input1{
+  position: absolute;
+  width: 32rpx;
+  height: 32rpx;
+  left: 10rpx;
+  z-index: 100;
+}
+.search-wrap .search_input2{
+  position: absolute;
+  width: 48rpx;
+  height: 48rpx;
+  right: 10rpx;
+  z-index: 100;
+}
+.search-wrap .search_item{
+  position: absolute;
+  width: 42rpx;
+  height: 42rpx;
+  right: 26rpx;
+}
+.result_flex{
+  display: flex;
+  align-items: center;
+}
+.search_result{
+  width: 32rpx;
+  height: 32rpx;
+  padding-right: 10rpx;
+}

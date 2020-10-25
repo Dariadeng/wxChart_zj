@@ -1,0 +1,31 @@
+<!-- 自建规则页面 -->
+<view class="role-page">
+   <view class="content">
+     <view class="content-list"
+        wx:for="{{rolesList}}"
+        wx:key="item">
+        <!-- <view class="list-left flex_center"
+          catchtap="select">
+          <block wx-if="{{!item.checked}}">
+            <view class='icon_none'></view>
+          </block>
+          <block wx-if="{{item.checked}}">
+            <image class="img_check" src="../../images/icon_checked.png"></image> 
+          </block>
+        </view> -->
+        <view class="list-right flex_between" 
+           data-id="{{item.id}}" 
+           catchtap="toRolesDetailPage">
+           <view class="list-right-item">
+            {{item.name}}
+           </view>
+           <view class="title-cell title-cell_in-access"></view>
+        </view>
+     </view>
+   </view>
+   <!-- <view class="bottom flex_center">
+      <view class="save-btn flex_center">
+        应用
+      </view>
+   </view> -->
+</view>

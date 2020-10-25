@@ -1,0 +1,100 @@
+/* pages/me/me.wxss */
+.user-page{
+  height: 100%;
+  background:rgba(245,247,250,1);
+}
+.userinfo-avatar {
+  width: 160rpx;
+  height: 160rpx;
+  margin: 0 40rpx;
+  border-radius: 50%;
+  background-size: cover;
+  background-color: white;
+}
+
+.userinfo-avatar:after {
+  border: none;
+}
+.info-wrap{
+  display: flex;
+  align-items: center;
+  width:100%;
+  height:260rpx;
+  color: #fff;
+  background:rgba(252,123,129,1);
+}
+.info-wrap .images{
+   width: 160rpx;
+   height: 160rpx;
+   margin: 0 40rpx;
+}
+.vip{
+   position: relative;
+}
+.vip-wrap{
+    display: flex;
+    margin-top: 20rpx;
+    font-size:24rpx;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(255,255,255,1); 
+    line-height: 34rpx;
+}
+.vip_mark{
+  padding: 4rpx 24rpx;
+  border-radius: 24rpx;
+  margin-right: 20rpx;
+}
+.normal_member{
+  background:rgba(62,62,62,.15);
+  border:1px solid rgba(255,255,255,.15);
+}
+.vip_member{
+  background:linear-gradient(270deg,rgba(219,187,132,1) 0%,rgba(235,211,161,1) 100%);
+}
+.vip_time{
+  position: absolute;
+  margin-top: 6rpx;
+  font-size: 24rpx;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(255,255,255,1);
+  line-height: 34rpx;
+}
+.menu-wrap{
+  padding: 20rpx 0;
+  background:rgba(245,247,250,1);
+  border-radius:2rpx;
+  font-size: 32rpx;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(30,30,30,1);
+  line-height: 44rpx;
+}
+.img_vip{
+   width: 36rpx;
+   height: 24rpx;
+   margin-right: 6rpx;
+}
+.menu-wrap .menu-item{
+  height:80rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20rpx;
+  background:rgba(255,255,255,1);
+  border-top:2rpx solid rgba(233,233,233,1);
+}
+.menu-wrap .menu-item:last-child{
+  border-bottom:2rpx solid rgba(233,233,233,1);
+}
+.out-wrap{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height:80rpx;
+  color: #FC7B81;
+  background:rgba(255,255,255,1);
+  border:2rpx solid rgba(233,233,233,1);
+  margin-top: 40rpx;
+}

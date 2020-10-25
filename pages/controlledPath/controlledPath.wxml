@@ -1,0 +1,31 @@
+<!-- 实控路径页面 -->
+<view class="controll-page">
+   <view class="header">
+    <view class="mrg-b-5" wx:if="{{type == 'actualController'}}">实际控制人：{{actualController}}</view>
+    <view>总共持股：{{totalStock != '' ? totalStock + '%' : ''}}</view>
+   </view>
+   <view class="content">
+     <view class="path-list"
+        wx:for="{{pathList}}"
+        wx:for-item="pitem" 
+        wx:for-index="pindex" 
+        wx:key="pindex">
+       <view class="title">
+         <text class="way">路径{{pindex + 1}}</text>
+         <text>（占比约{{pitem[0].realRatio }}%）</text>
+       </view>
+       <view class="path-container">
+        <block class="path" 
+            wx:for="{{pitem}}"
+            wx:key="index">
+            <view class="arrow-wrap" wx:if="{{index != 0}}">
+              <view class="ratio">{{item.realRatio}}%</view>
+              <image class="img" 
+                            src="../../images/icon_arrow.png"></image> 
+            </view>
+            <text>{{item.name}}</text>
+        </block>
+       </view>
+     </view>
+   </view>
+</view>

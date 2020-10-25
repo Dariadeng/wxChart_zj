@@ -1,0 +1,66 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/detail/detail",
+    "pages/searchResult/searchResult",
+    "pages/ companyFilter/ companyFilter",
+    "pages/involvedRisk/involvedRisk",
+    "pages/handleGroup/handleGroup",
+    "pages/caseList/caseList",
+    "pages/caseDetail/caseDetail",
+    "pages/refereeList/refereeList",
+    "pages/refereeDetail/refereeDetail",
+    "pages/loginIndex/loginIndex",
+    "pages/me/me",
+    "pages/aboutUs/aboutUs",
+    "pages/monitorList/monitorList",
+    "pages/groupHistory/groupHistory",
+    "pages/warningEvent/warningEvent",
+    "pages/searchRecord/searchRecord",
+    "pages/vipDescription/vipDescription",
+    "pages/editNote/editNote",
+    "pages/namesakeCompanyList/namesakeCompanyList",
+    "pages/personalIndex/personalIndex",
+    "pages/characterEntityList/characterEntityList",
+    "pages/characterGroup/characterGroup",
+    "pages/characterGroupSetting/characterGroupSetting",
+    "pages/addCompanyIndex/addCompanyIndex",
+    "pages/addCompanyDetail/addCompanyDetail",
+    "pages/selfBuiltRules/selfBuiltRules",
+    "pages/selfRolesDetail/selfRolesDetail",
+    "pages/controlledPath/controlledPath"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "知君",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap48.json",
+  "tabBar": {
+    "color": "#7A7E83",
+    "selectedColor": "#FC7B81",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/icon_home_normal.png",
+        "selectedIconPath": "images/icon_home_selected.png",
+        "text": "公司风险"
+      },
+      {
+        "pagePath": "pages/personalIndex/personalIndex",
+        "iconPath": "images/icon_person_normal.png",
+        "selectedIconPath": "images/icon_person.png",
+        "text": "个人风险"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "iconPath": "images/icon_my_normal.png",
+        "selectedIconPath": "images/icon_my_selected.png",
+        "text": "我的"
+      }
+    ]
+  }
+}

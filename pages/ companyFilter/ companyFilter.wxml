@@ -1,0 +1,268 @@
+<!--企业集合筛选页-->
+<view class="loading" wx:if="{{isLoad}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+</view>
+<view class="noData" wx:if="{{isNoData}}">
+    <view class="weui-loadmore .weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+    </view>
+</view>
+<view class="filter-page" wx:if="{{!isLoad && !isNoData}}">
+  <my-dialog bind:close="closeRiskDialog" wx:if="{{riskDialogFlag}}">
+      <view slot="title">企业集合涉诉风险指数</view>
+      <view slot="content">综合考虑集合内各公司涉诉情况，衡量该集合涉诉情况的严重性。</view>
+      <!-- <view slot="way">计算方法：
+          <view>企业集合涉诉风险指数f(n)=SUM (集合中各单体公司涉诉风险指数*核心公司对单体公司的实控比例） 。</view>
+       </view> -->
+  </my-dialog>
+  <my-dialog bind:close="closeComDialog" wx:if="{{comDialogFlag}}">
+      <view slot="title">单体企业涉诉风险指数</view>
+      <view slot="content">仅考虑该公司自身涉诉风险，衡量该企业涉诉情况的严重性。 </view>
+      <!-- <view slot="way">计算方法：
+          <view>单体企业涉诉风险指数=（原告占比*0.1+被告占比*0.25+败诉占比*0.25+败诉赔款*0.4）*8/5%</view>
+      </view> -->
+  </my-dialog>
+  <view class="company-introduce">
+    <view class="group_title">
+       <text class="one_line_omit">{{mainEntityCom.name}}</text>
+       <text class="title_block">企业集合</text>
+    </view>
+    <view class="introduce-bd">
+        <view class="introduce-loading" wx:if="{{isMainLoad}}">
+            <view class="weui-loading"></view>
+        </view>
+        <view class="canvasBox">
+          <canvas class="progress_bg" canvas-id="canvasProgressbg" />
+          <canvas class="progress_canvas" canvas-id="canvasProgress" /> 
+          <view class="progress_text">
+            <text class='progress_info'> {{progress_txt}}</text>分
+          </view>
+        </view>
+        <view class="main-item">
+          <view class="num mrg-b-5">{{mainData.lawsuitCountTotal}}件</view>
+          <view class="text">集合案件数量</view>
+        </view>
+        <view class="split-line"></view>
+        <view class="main-item" style="padding-left: 30rpx;">
+          <view class="num  mrg-b-5">{{mainData.lawsuitCreditTotal.value}}</view>
+          <view class="text">集合涉案金额</view>
+        </view>
+    </view>
+    <view class="introduce-bd mrg-t-5">
+        <view class="name">
+           企业集合涉诉风险指数
+           <image class="images1" 
+                  bindtap="openRiskDialog" src="../../images/icon_tips.png"></image>
+        </view>
+        <!-- <view class="name flex_between">
+           <view class="monitor" bindtap="toMonitorPage">
+              +添加企业
+           </view>
+           <view class="flex_between">
+              <image class="images2" src="../../images/icon_graph.png"></image>
+              查看图谱
+           </view>
+        </view> -->
+    </view>
+  </view>
+  <!-- 核心企业信息 -->
+  <view class="center-wrap"   
+        data-name="{{mainEntityCom.name}}"
+        data-checked="{{mainEntityCom.checked}}"
+        data-lawsuit="{{mainEntityCom.lawsuitCountTotal}}"
+        id="{{mainEntityCom.company_id}}"
+        catchtap="toCasePage">
+    <!-- <view  class="com_lefts" wx:if="{{management_company}}">
+       <image class="img_check" src="../../images/icon_checked_disable.png"></image> 
+    </view> -->
+    <view class="com_right">
+       <view class="title">
+          <view class="flex_center">
+              <text>{{mainEntityCom.name}}</text>
+         </view>
+         <view class="grade">
+             <view class="type_block block_orange">核心企业</view>
+             <image class="images1" 
+                catchtap="openComDialog" src="../../images/icon_tips_w.png"></image> 
+             {{mainEntityCom.riskScoreByLawsuit}}分
+         </view>
+      </view>
+      <view class="content-mian-bd">
+        <view class="main-item">
+          <view class="text">案件数量：
+          <text class="num1">{{mainEntityCom.lawsuitCountTotal?mainEntityCom.lawsuitCountTotal +'件': '-'}}</text></view>
+        </view>
+        <view class="main-item" style="padding-left: 30rpx;">
+          <view class="text">裁判文书：
+          <text class="num1">{{mainEntityCom.judicialDocumentCountTotal?mainEntityCom.judicialDocumentCountTotal+'篇' : '-'}}</text></view>
+        </view>
+      </view>
+      <view class="content-mian-bd">
+        <view class="main-item">
+            <block><text class="text">败诉占比：</text>
+              {{mainEntityCom.loseRatio || '-'}}
+            </block>
+        </view>
+        <view class="main-item" style="padding-left: 30rpx;">
+            <block><text class="text">被告占比：</text>
+              {{mainEntityCom.defendantRatio || '-'}}
+            </block>
+        </view>
+      </view>
+      <view class="content-mian-bd" style="margin-bottom:14rpx">
+        <view class="main-item">
+          <view class="text">涉案金额：
+          <text class="num1">{{mainEntityCom.lawsuitCreditTotalValue  || '-'}}</text></view>
+        </view>
+        <view class="main-item flex_between" style="padding-left: 30rpx;">
+          <view class="text">败诉赔款：
+          <text class="num1">{{mainEntityCom.lawsuitCreditForLoseValue || '-'}}</text></view>
+          <view class="detail-wrap flex_center">
+              <image class="img_detail" src="../../images/icon_details.png"></image>
+              <!-- 详情 -->
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 企业集合 -->
+  <view class="company-list-wrap">
+    <view class="flex_between" style="height: 60rpx;">
+        <view class="tips">
+          共关联<text class="total">{{companyListCount}}</text>家企业
+        </view>
+        <view class="monitor" 
+          wx:if="{{management_company}}"
+          bindtap="toMonitorPage">
+          +添加企业
+        </view>
+    </view>
+    <view  
+          wx:for="{{companyList}}"
+          wx:for-item="citem" 
+          wx:for-index="cindex" 
+          wx:key="cindex">
+      <view class="content" 
+            style="color:{{item.checked ?'':'rgba(30,30,30,.3)'}}"
+            wx:for="{{citem}}"
+            wx:key="index" 
+            data-cid="{{cindex}}"
+            data-id="{{index}}" catchtap='select'>
+        <view wx:if="{{management_company}}" class='com_lefts'>
+            <block wx-if="{{!item.checked}}">
+              <view class='icon_none'></view>
+            </block>
+            <block wx-if="{{item.checked}}">
+              <image class="img_check" src="../../images/icon_checked.png"></image> 
+            </block>
+        </view>
+        <view class='com_right' 
+            data-name="{{item.name}}"
+            data-checked="{{item.checked}}"
+            data-lawsuit="{{item.lawsuitCountTotal}}"
+            id="{{item.company_id}}"
+            catchtap="toCasePage">
+            <view class="title" style="color:{{item.checked ?'':'rgba(30,30,30,.3)'}}">
+              <view class="flex_center">
+                  <!--  data-id="{{index}}" catchtap="select" -->
+                  <text>{{item.name}}</text>
+                  <!-- <view class="block-num">{{item.shareholderEquityRatio}}</view> -->
+              </view>
+              <view class="grade">
+                <view class="type_block block_blue" wx:if="{{item.isCustomize}}">自定义</view>
+                {{item.riskScoreByLawsuit || 0 }}分
+              </view>
+            </view>
+            <view class="content-mian-bd" wx:if="{{!item.isCustomize}}">
+              <view class="main-item">
+                <block><text class="text">实控比例：</text>
+                {{ item.shareholderEquityRatio? (item.shareholderEquityRatio * 100) + '%' : '-'}}</block>
+              </view>
+              <view class="main-item">
+                <block><text class="text">关联关系：</text>
+                {{item.relationships || '-'}}</block>
+              </view>
+            </view>
+            <view class="content-mian-bd">
+              <view class="main-item">
+                <block>
+                <text class="text">案件数量：</text>{{item.lawsuitCountTotal?item.lawsuitCountTotal+'件':'-'}}
+                </block>
+              </view>
+              <view class="main-item">
+                <block>
+                <text class="text">裁判文书：</text>{{item.judicialDocumentCountTotal?item.judicialDocumentCountTotal+'篇':'-'}} </block>
+              </view>
+            </view>
+            <view class="content-mian-bd">
+              <view class="main-item">
+                <block><text class="text">败诉占比：</text>
+                  {{item.loseRatio || '-'}}
+                </block>
+              </view>
+              <view class="main-item">
+                <block><text class="text">被告占比：</text>
+                  {{item.defendantRatio || '-'}}</block>
+              </view>
+            </view>
+            <view class="content-mian-bd" style="margin-bottom:10rpx">
+              <view class="main-item">
+                <block>
+                  <text class="text">涉案金额：</text>
+                  {{item.lawsuitCreditTotalValue || '-'}}
+                </block>
+              </view>
+              <view class="main-item flex_between">
+                <view>
+                  <text class="text">败诉付款：</text>
+                  {{item.lawsuitCreditForLoseValue || '-'}}
+                </view>
+                <view class="detail-wrap flex_center">
+                    <image class="img_detail" src="../../images/icon_details.png"></image>
+                    <!-- 详情 -->
+                </view>
+              </view>
+            </view>
+            <view class="split-line-bt"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class='bottom flex_between'>
+    <view class='left flex_start' wx:if="{{management_company}}">
+      <block wx:if="{{select_all}}">
+        <view catchtap='select_none' class='flex_start'>
+          <image class="img_check" src="../../images/icon_checked.png"></image> 
+          <view class="mrg-l-5">
+            取消全选
+          </view>
+        </view>
+      </block>
+      <block wx:if="{{!select_all}}">
+        <view catchtap='select_all' class='flex_start'>
+          <view class='select_none'>       
+          </view>
+          <view class="mrg-l-5">
+            全选
+          </view>
+        </view>
+      </block>
+    </view>
+    <view class='left flex_start' wx:if="{{management_company}}">
+      <view bindtap='sureSelectScope' class='sure_scope flex_center'>
+        确认
+      </view>
+    </view>
+    <view class='left flex_start' wx:if="{{!management_company}}">
+        <view bindtap='handleSelect' class='flex_start'>
+          设置企业集合范围
+        </view>
+    </view>
+    <view class='right flex_end'>
+      <view bindtap='sureListScope' class='sure' style="background:{{!management_company?'rgba(253,125,130,1)':'rgba(253,125,130,.5)'}}">
+         查看涉诉风险指数
+      </view>
+    </view>
+  </view>
+</view>

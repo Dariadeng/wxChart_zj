@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "my-msgDialog": "/component/messageBox/messageBox"
+  },
+  "backgroundTextStyle": "light",
+  "navigationBarBackgroundColor": "#FC7B81",
+  "navigationBarTitleText": "涉诉风险指数",
+  "navigationBarTextStyle": "white"
+}

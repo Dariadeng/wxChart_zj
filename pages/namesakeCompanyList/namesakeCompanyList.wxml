@@ -1,0 +1,77 @@
+<!-- 同名人物公司列表 -->
+<view class="namesake-page">
+   <view class="description">
+      说明：置信度表示两位同名人为同一人的可能性大小
+   </view>
+   <view class="loading" wx:if="{{isLoading}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+   <view class="noData" wx:if="{{isNoData}}">
+        <view class="weui-loadmore .weui-loadmore_line">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+        </view>
+    </view>
+   <view class="content" wx:if="{{!isLoading && !isNoData}}">
+      <view class="company-list"
+            wx:for="{{companyList}}"
+            wx:key="item"
+            data-disable="{{item.disableCompany}}"
+            data-id="{{index}}"
+            catchtap="select">
+         <view class="list-left" wx:if="{{item.disableCompany}}">
+            <image class="img_check" src="../../images/icon_checked_disable.png"></image>
+         </view>
+         <view class="list-left" wx:else>
+            <block wx-if="{{!item.checked}}">
+              <view class='icon_none'></view>
+            </block>
+            <block wx-if="{{item.checked}}">
+              <image class="img_check" src="../../images/icon_checked.png"></image> 
+            </block>
+         </view>
+         <view class="list-right">
+            <view class="company_title">
+              <view class="flex_center">
+                {{item.name}}
+              </view>
+              <view class="grade ">
+                置信度：
+                <text class="grade-num">{{item.confidence && item.confidence*100}}%</text>
+              </view>
+            </view>
+            <!-- <view class="introduce-bd mrg-tb-14">
+                <view class="main-item">
+                  <view class="text mrg-b-5">法人代表人</view>
+                  <view>{{item.investeeLegalRepresentativeName || '-'}}</view>
+                </view>
+                <view class="main-item">
+                  <view class="text mrg-b-5">注册资本</view>
+                  <view>{{item.investeeSaicRegistrationCapital || '-'}}</view>
+                </view>
+                <view class="main-item">
+                  <view class="text mrg-b-5">成立日期</view>
+                  <view>{{item.investeeSaicRegistrationDate || '-'}}</view>
+                </view>
+            </view>
+            <view class="split-line-bt"></view>
+            <view class="main-cell mrg-t-10">
+              <view class="text mrg-b-3">{{ item.personName }}的角色：</view>
+              <view style="margin-left: 20rpx;">{{item.roleName || '-'}}</view>
+            </view> -->
+         </view>
+      </view>
+   </view>
+   <view class="bottom flex_between">
+       <view class='left flex_start'>
+        <!-- <view bindtap='backSettingPage' class='back-btn flex_center'>
+           返回确认集合范围页
+        </view>  -->
+      </view>
+      <view class='right flex_end'>
+        <view class="save-btn flex_center" catchtap="saveMerge">
+          保存
+        </view>
+      </view>
+   </view>
+</view>

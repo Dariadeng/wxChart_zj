@@ -1,0 +1,58 @@
+/* pages/warningEvent/warningEvent.wxss */
+.case-page{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background:rgba(243,243,243,1);
+  font-family:PingFangSC-Medium,PingFang SC;
+}
+.case-page .header{
+  padding: 12rpx 40rpx;
+  font-size:12px;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(30,30,30,0.5);
+  line-height:17px;
+}
+.case-page .content{
+    padding:16rpx 40rpx;
+    background:rgba(255,255,255,1);
+}
+.no_content{
+  width: 100%;
+  min-height: 200rpx;
+  font-size: 24rpx;
+  font-weight:400;
+  font-family:PingFangSC-Regular,PingFang SC;
+  color: rgba(0,0,0,.5);
+}
+.case-page .content-item{
+   padding: 10rpx 0;
+}
+.case-page .content-item .name{
+    padding: 10rpx 0;
+    font-size:30rpx;
+    font-weight:400;
+    color:#1E1E1E;
+    line-height:42rpx;
+    font-family: PingFangSC-Regular,PingFang SC;
+}
+.content-item .top{
+  display: flex;
+  justify-content: space-between;
+}
+.content-item .bottom{
+  display: flex;
+}
+.content-item .bottom .bottom-cell{
+  background:rgba(243,243,243,1);
+  border-radius:4rpx;
+  font-size:24rpx;
+  font-weight:500;
+  color:rgba(0,0,0,0.45);
+  line-height:34rpx;
+  padding: 4rpx 8rpx;
+}
+.bottom-cell+.bottom-cell{
+   margin-left: 10rpx;
+}

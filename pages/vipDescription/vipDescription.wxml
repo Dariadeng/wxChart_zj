@@ -1,0 +1,62 @@
+<!--pages/vipDescription/vipDescription.wxml-->
+<!-- <view class="vip-page">
+  <view class="header">
+      <image class="img_head" src="../../images/icon_wechat.png"></image>
+      微信号：{{wxAccount}}
+  </view>
+  <view class="content_container">
+     <view class="content_top flex_between" wx:if="{{!isVipFlag}}">
+       <view class="top_left">
+          <view class="title1">知君VIP会员</view>
+          <view class="title2">知君个人VIP会员</view>
+       </view>
+       <view class="top_right">¥<text class="num_credit">360</text>/年</view>
+       <image class="vip_bg" src="../../images/bg_vip.png"></image>
+     </view>
+     <view class="content_table">
+         <view class="tr tr_title"><text style="padding-left:32rpx">会员特权</text></view>
+         <view class="tr">
+            <view class="th"></view>
+            <view class="th">普通会员</view>
+            <view class="th">VIP会员</view>
+        </view>
+        <view class="tr">
+            <view class="td flex_start">监控企业集合上限</view>
+            <view class="td flex_center">3个</view>
+            <view class="td flex_center" style="color:#B4282D">10个</view>
+        </view>
+        <view class="tr">
+            <view class="td">监控单体企业</view>
+            <view class="td">不限制</view>
+            <view class="td">不限制</view>
+        </view>
+        <view class="tr">
+            <view class="td flex_center"><view>已监控企业集合/单体企业数据更新</view></view>
+            <view class="td flex_center"><view>工商数据，涉诉数据每周更新</view></view>
+            <view class="td bold_tip flex_center">
+              <view>工商数据，涉诉数据<text style="color:#B4282D">每日</text>更新</view>
+            </view>
+        </view>
+        <view class="tr">
+            <view class="td flex_center"><view>预警推送</view></view>
+            <view class="td">每周一上午9点推送预警消息</view>
+            <view class="td bold_tip">
+              <text style="color:#B4282D">每日</text>上午9点推送预警消息
+            </view>
+        </view>
+     </view>
+  </view>
+  <view class='bottom flex_between' wx:if="{{!isVipFlag}}">
+    <view class='left flex_start'>
+       <view>
+          <text style="color:#333333;padding-right: 10px;">应付金额</text>
+          ¥<text class="num_credit" style="color:#FD7D82">360</text>元
+      </view>
+    </view>
+    <view class='right flex_end'>
+      <view bindtap='bindPay' class='sure' style="background:rgba(253,125,130,1)">
+         去支付
+      </view>
+    </view>
+  </view>
+</view> -->

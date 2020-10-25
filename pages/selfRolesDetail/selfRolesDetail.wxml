@@ -1,0 +1,228 @@
+<!-- 自建规则 多个规则页 -->
+<view class="loading" wx:if="{{isLoading}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+</view>
+<view class="detail-page" wx:if="{{!isLoading}}">
+    <view class="header flex_between" wx:if="{{ expandType == 1 ||expandType == 2}}">
+      <view class="header-left">
+        <!-- <picker bindchange="bindPickerChange" value="{{index}}" range="{{layersArray}}">    -->
+        <view class="picker" catchtap="showPicker">
+            <text style="margin-left: 15rpx;">穿透层数：</text>
+            <view class="picker-item flex_between">
+               {{ expandType == 1 ? shareholderChainDepth : investeeChainDepth}}层
+               <view class="arrow"></view>
+            </view> 
+          </view>  
+        <!-- </picker> -->
+      </view>
+      <view class="header-right" catchtap="showSlider">
+        持股比例：
+        <view class="slider-wrap flex_between">
+           <view class="picker-item flex_center">
+              {{ expandType == 1 ? shareholderRatioMin : investeeRatioMin }}%</view>
+           至
+           <view class="picker-item flex_center">
+              {{ expandType == 1 ? shareholderRatioMax : investeeRatioMax }}%</view>
+        </view>
+      </view>
+    </view>
+    <view class="header" wx:if="{{ expandType == 4}}">
+       <view class="header-content">
+        附近 
+        <image class="images2" src="../../images/icon_less.png" 
+              catchtap="reduceDistance"></image> 
+        {{distanceMax}}公里
+        <image class="images2" src="../../images/icon_more.png"
+              catchtap="increaseDistance"></image> 
+       </view>
+    </view>
+    <view class="mask" catchtap="closeMask"  wx:if="{{pickerFlag||sliderFlag}}"></view>
+    <view class="filter-box filter-extend" wx:if="{{pickerFlag}}">
+        <view class="list-item">
+          <block wx:for="{{layersArray}}" wx:key="index">
+            <view class="item" 
+                  id="{{item}}"
+                  data-index="{{index}}" 
+                  bindtap="selectLayer">
+              <text class="{{currentIndex === index ? 'selectName' : 'name'}}">
+                  {{item}}层
+              </text>
+            </view>
+          </block>
+        </view>
+    </view>
+    <view class="filter-box slider-box" wx:if="{{sliderFlag}}">
+            <!-- 以下是对一个自定义组件的引用 -->
+          <view class='range-text flex_start'>
+            持股比例：<text style="color:#FC7B81">{{minValue}}%   ~   {{maxValue}}% </text>
+          </view>
+          <range-slider width='640' height='80' block-size='30' min='0' max='100' values='{{rangeValues}}' bind:rangechange='onRangeChange'>
+            <view slot='minBlock' class='range-slider-block'></view>
+            <view slot='maxBlock' class='range-slider-block'></view>
+          </range-slider>
+          <view class="range-value flex_between">
+            <view>0%</view><view>100%</view>
+          </view>
+          <view class="range-btn flex_end">
+              <view bindtap='setShareholdingRatio' class='sure_scope flex_center'>
+                保存
+              </view> 
+          </view>
+    </view>
+    <view class="noData" wx:if="{{isNoData}}">
+        <view class="weui-loadmore .weui-loadmore_line">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+        </view>
+    </view>
+    <view  wx:if="{{!isNoData}}"
+      class="{{expandType == 3 || expandType == 5 ? 'content2':'content1'}}">
+      <view class="total">
+        根据{{expandName[expandType]}}，共返回<text style="color:#FC7B81">{{resultsTotal||'0'}}</text>家企业,
+        已勾选<text style="color:#FC7B81">{{ selectedNumber ||'0'}}</text>家
+      </view>
+      <view class="company-wrap">
+         <view class="company-list"
+                wx:for="{{companyList}}"
+                wx:key="item"
+                data-index="{{index}}"
+                data-id="{{item['@id']}}"
+                data-disable="{{item.disableCompany}}"
+                catchtap='select'>
+            <view class="list-left" wx:if="{{item.disableCompany}}">
+                <image class="img_check" src="../../images/icon_checked_disable.png"></image> 
+            </view>
+            <view class="list-left" wx:else>
+              <block wx-if="{{!item.checked}}">
+                <view class='icon_none'></view>
+              </block>
+              <block wx-if="{{item.checked}}">
+                <image class="img_check" src="../../images/icon_checked.png"></image> 
+              </block>
+            </view>
+            <view class="list-right">
+              <view class="company_title">
+                <view class="flex_center" 
+                    data-name="{{item.name}}" 
+                    data-person="{{item.isPersonType}}"
+                    catchtap="toDetailPage">
+                    <text style="color:{{!item.isPersonType && '#40A9FF'}}">{{item.name}}</text>
+                </view>
+                <view class="grade" wx:if="{{item.riskScoreByLawsuit}}">
+                  <!-- <image class="images1" 
+                        src="../../images/icon_tips_w.png"></image>  -->
+                  <text class="grade-num">{{item.riskScoreByLawsuit || 0 }}</text>
+                  分
+                </view>
+              </view>
+               <block wx:if="{{item.extType[1]}}">
+                <view class="main-cell mrg-b-5">
+                    <text class="text">总共持股： </text>
+                    {{item.extType[1].showEquityRatio}}% 
+                    <image class="path_img"                       
+                        src="../../images/icon_path.png"
+                        data-type="1"
+                        data-index="{{index}}"
+                        catchtap="toControlledPage"></image> 
+                </view>
+              </block>
+              <block wx:if="{{item.extType[2]}}">
+                <view class="main-cell mrg-b-5">
+                    <text class="text">总共持股：</text>
+                    {{item.extType[2].showEquityRatio}}%
+                    <image class="path_img"                       
+                        src="../../images/icon_path.png"
+                        data-type="2"
+                        data-index="{{index}}"
+                        catchtap="toControlledPage"></image>  
+                </view>
+              </block>
+              <view class="main-cell mrg-b-5">
+                  <text class="text">关联关系：</text>
+                  <block wx:if="{{item.extType[1]}}">
+                    股东关系;
+                  </block>
+                  <block wx:if="{{item.extType[2]}}">
+                    对外投资关系;
+                  </block>
+                  <block wx:if="{{item.extType[3]}}">
+                    该公司与{{item.extType[3].nameCompany}}名称相似;
+                  </block>
+                  <block wx:if="{{item.extType[4]}}">
+                    该公司与{{item.extType[4].nameCompany}}地址相邻;
+                  </block>
+                  <block wx:if="{{item.extType[5]}}">
+                    人物实体链接({{item.extType[5].namePerson}});
+                  </block>
+              </view>
+              <view class="main-cell mrg-b-5" wx:if="{{item.actualController}}">
+                  <text class="text">公司实际控制人：</text>
+                  {{item.actualController}}({{item.actualControllerRatio}})
+              </view>
+              <!-- <view class="split-line-bt"></view> 
+              <view class="content-mian-bd"  style="margin-top:10rpx">
+                <view class="main-item">
+                  <text class="text">案件数量：</text>{{item.lawsuitCountTotal?item.lawsuitCountTotal+'件':'-'}}
+                </view>
+                <view class="main-item">
+                  <text class="text">裁判文书：</text>{{item.judicialDocumentCountTotal?item.judicialDocumentCountTotal+'篇':'-'}} 
+                </view>
+              </view>  
+              <view class="content-mian-bd">
+                <view class="main-item">
+                    <text class="text">败诉占比：</text>
+                    {{item.loseRatio || '-'}}
+                </view>
+                <view class="main-item">
+                    <text class="text">被告占比：</text>
+                    {{item.defendantRatio || '-'}}
+                </view>
+              </view>
+              <view class="content-mian-bd" style="margin-bottom:10rpx">
+                <view class="main-item">
+                    <text class="text">涉案金额：</text>
+                    {{item.lawsuitCreditTotalValue || '-'}}
+                </view>
+                <view class="main-item">
+                    <text class="text">败诉付款：</text>
+                    {{item.lawsuitCreditForLoseValue || '-'}}
+                </view>
+              </view> -->
+              <!-- <image class="detailBtn images1" 
+                    data-name="{{item.name}}"                      
+                    src="../../images/icon_details.png"
+                    catchtap="toDetailPage"></image> -->
+            </view>
+        </view>
+      </view>
+      <view class="company-loading flex_center" wx:if="{{companyLoading}}">
+        <view class="wx_dot_loading"></view>
+      </view>
+    </view>
+    <view class='bottom flex_between'>
+      <view class='left flex_start'>
+        <block wx:if="{{select_all}}">
+          <view catchtap='select_none' class='flex_start'>
+            <image class="img_check" src="../../images/icon_checked.png"></image> 
+            <view class="mrg-l-5">
+              取消全选
+            </view>
+          </view>
+        </block>
+        <block wx:if="{{!select_all}}">
+          <view catchtap='select_all' class='flex_start'>
+            <view class='select_none'>       
+            </view>
+            <view class="mrg-l-5">
+              全选
+            </view>
+          </view>
+        </block>
+      </view>
+      <view class='right flex_end'>
+        <view bindtap='bindApplication' class='sure_scope flex_center'>
+          应用
+        </view>
+      </view>
+    </view>
+</view>

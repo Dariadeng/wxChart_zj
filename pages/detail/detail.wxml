@@ -1,0 +1,646 @@
+<!--企业信息详情页面-->
+<view class="loading" wx:if="{{isLoad}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+</view>
+<view class="noData" wx:if="{{isNoData}}">
+    <view class="weui-loadmore .weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+    </view>
+</view>
+<view class="detail-page" wx:if="{{!isLoad && !isNoData}}">
+  <view class="company-introduce">
+    <view class="introduce-bd mrg-b-5">
+        <view class="name">{{basicInfo.name}}</view>
+        <view class="status">{{basicInfo.regStatus}}</view>
+    </view>
+    <view class="refresh-wrap" catchtap="refreshEntityData">
+      <image class="refresh_img {{isUpdating?'refresh_rotate':''}}"                       
+        src="../../images/icon_refresh.png"></image> 
+      <text wx:if="{{isRefresh}}">点击更新</text> 
+      <text wx:else>{{finalRefreshDate}} 更新</text> 
+    </view>
+    <view class="introduce-bd">
+        <view class="main-item">
+          <view class="text mrg-b-5">法人代表人</view>
+          <view class="{{basicInfo.isSomebody ? 'font_bule' : ''}}"
+              data-name="{{basicInfo.nameLegalRepresentative}}"
+              data-somebody="{{basicInfo.isSomebody}}"
+              catchtap="toNamesakeListPage">{{basicInfo.LegalRepRole.name  || '-'}}</view>
+        </view>
+        <view class="main-item">
+          <view class="text mrg-b-5">注册资本</view>
+          <view>{{basicInfo.regCapitalValue  || '-'}}</view>
+        </view>
+        <view class="main-item">
+          <view class="text mrg-b-5">成立日期</view>
+          <view>{{basicInfo.foundingDate  || '-'}}</view>
+        </view>
+    </view>
+  </view>
+  <!-- <view class="tips-wrap">
+     <view class="tip-content add" 
+        wx:if="{{companyStatus==0}}"
+        data-name="{{basicInfo.name}}"
+        data-id="{{basicInfo['@id']}}"
+        catchtap="bindAddGroupMenber" >
+       <view><image class="img_tip" src="../../images/icon_add_bus.png"></image></view>
+       <text>将该企业添加到“{{coreCompanyName}}企业集合”中</text>
+     </view>
+     <view class="tip-content alreadyAdd" wx:else>
+       <view><image class="img_tip" src="../../images/icon_ok.png"></image></view>
+       <text wx:if="{{companyStatus==1}}">已将该企业添加到“{{coreCompanyName}}企业集合”中</text>
+       <text wx:if="{{companyStatus==2}}">系统已将该企业添加到“{{coreCompanyName}}企业集合”中</text>
+     </view>
+  </view> -->
+ <view class="company-wrap">
+  <!--基本信息开始-->
+  <view class="company-info">
+    <view class="title">
+      <view class="title-img">
+        <!-- <image class="images1" src="../../images/icon_basic.png"></image> -->
+        工商信息
+      </view>
+    </view>
+    <view class="content">
+       <view class="content-mian-bd mrg-tb-17">
+         <view class="main-item">
+           <view class="text mrg-b-3">统一社会信用代码</view>
+           <view>{{basicInfo.unifiedCode  || '-'}}</view>
+         </view>
+         <view class="split-line"></view>
+         <view class="main-item" style="padding-left: 30rpx;">
+           <view class="text mrg-b-3">工商注册号</view>
+           <view>{{basicInfo.regCode  || '-'}}</view>
+         </view>
+       </view>
+       <view class="split-line-bt"></view>
+       <view class="main-cell mrg-t-17 mrg-b-5">
+         <view class="text mrg-b-3">企业类型</view>
+         <view>{{basicInfo.regOrgType || '-'}}</view>
+       </view>
+       <view class="content-mian-bd mrg-b-17">
+         <view class="main-item">
+           <view class="text mrg-b-3">营业期限自</view>
+           <view>{{basicInfo.validFrom || '-'}}</view>
+         </view>
+         <view class="split-line"></view>
+         <view class="main-item" style="padding-left: 30rpx;">
+           <view class="text mrg-b-3">营业期限至</view>
+           <view>{{basicInfo.validUntil || '-'}}</view>
+         </view>
+       </view>
+       <view class="split-line-bt mrg-t-10"></view>
+       <view class="main-cell mrg-t-17 mrg-b-5">
+          <view class="text mrg-b-3">登记机关</view>
+          <view>{{basicInfo.regAgency || '-'}}</view>
+       </view>
+       <view class="content-mian-bd">
+         <view class="main-item">
+           <view class="text mrg-b-3">登记状态</view>
+           <view>{{basicInfo.regStatus || '-'}}</view>
+         </view>
+         <view class="split-line"></view>
+         <view class="main-item" style="padding-left:30rpx;">
+           <view class="text mrg-b-3">核准时间</view>
+           <view>{{basicInfo.regDate || '-'}}</view>
+         </view>
+       </view>
+       <view class="split-line-bt mrg-t-17"></view>
+       <view class="content-mian-bd mrg-t-10">
+         <view class="main-cell">
+           <view class="text mrg-b-3">企业住所</view>
+           <view>{{basicInfo.regLocation || '-'}}</view>
+         </view>
+       </view>
+       <view class="split-line-bt mrg-t-17"></view>
+       <view class="main-cell mrg-t-17 mrg-b-5">
+          <view class="text mrg-b-3">经营范围</view>
+          <view>{{basicInfo.businessScope || '-'}}</view>
+       </view>
+    </view>
+  </view>
+  <!--基本信息结束 分支机构开始-->
+  <!-- <view class="company-info">
+    <view class="title">
+      分支机构
+      <view class="title-cell title-cell_in-access" bindtap="bindShowBranch"></view>
+    </view>
+    <view class="content" wx:if="{{showBranch}}">
+       <view class="content-mian-bd">
+         <view class="main-cell">
+           <view>分支机构名称</view>
+           <view>{{basicInfo.nameBranch}}</view>
+         </view>
+       </view>
+    </view>
+  </view> -->
+  <!--分支机构结束 变更记录开始-->
+  <!-- <view class="company-info">
+    <view class="title">
+      变更记录
+      <view class="title-cell title-cell_in-access" bindtap="bindShowAlter">{{alterInfo.length}}</view>
+    </view>
+    <view class="content" wx:if="{{showAlter}}">
+       <view class="content-mian-bd-in" 
+          wx:for="{{alterInfo}}"    
+          wx:key="item">
+         <view class="main-cell">
+           <view>{{item.date}}</view>
+           <view>{{item.changeCategory}}</view>
+         </view>
+         <view class="main-cell2">
+          <view class="main-item">
+            <view>变更前</view>
+            <view>{{item.textBefore}}</view>
+          </view>
+          <view class="main-item split-line">
+            <view>变更后</view>
+            <view>{{item.textAfter}}</view>
+          </view>
+         </view>
+         <view class="item-spread"></view>
+       </view>
+    </view>
+  </view> -->
+  <!--股东信息-->
+  <view class="company-info">
+    <view class="split-line-bt mrg-b-12"></view>
+    <view class="title"
+        style="color:{{shareholderInfo.length?'#1E1E1E':'rgba(30,30,30,.5)'}}">
+        股东信息
+      <!-- <view class="title-cell title-cell_in-access" bindtap="bindShowHolder">{{basicInfo.listShareholderRole.length}}</view> -->
+    </view>
+    <view class="content">
+       <view class="content-mian-bd-in mrg-tb-14"
+             wx:for="{{shareholderInfo}}" wx:key="item">
+         <view class="main-cell">
+           <view wx:if="{{item.ppShareholderType==1}}"
+                 class="font_bule"
+                 data-name="{{item.nameShareholder}}"
+                 catchtap="getCompanyData">
+                 {{item.nameShareholder|| '-'}}</view> 
+           <view wx:if="{{item.ppShareholderType==2}}"
+                 class="{{item.isSomebody ? 'font_bule' : ''}}"
+                 data-somebody="{{item.isSomebody}}"
+                 data-name="{{item.nameShareholder}}"
+                 catchtap="toNamesakeListPage">
+                 {{item.nameShareholder|| '-'}}</view> 
+         </view>
+         <view class="content-mian-bd">
+            <view class="main-item">
+              <view class="text mrg-b-3">持股比例</view>
+              <text>{{item.shareholderEquityRatio ? item.shareholderEquityRatio +'%' : '-'}}</text>
+            </view>
+            <view class="split-line"></view>
+            <view class="main-item" style="padding-left:30rpx;">
+              <view class="text mrg-b-3">认缴出资额</view>
+              <view>{{item.shareholderCreditValue}}</view>
+            </view>
+          </view>
+          <view class="content-mian-bd">
+            <view class="main-item">
+              <view class="text mrg-b-3">认缴出资时间</view>
+              <text>{{item.date|| '-'}}</text>
+            </view>
+          </view>
+       </view>
+    </view>
+  </view> 
+  <!--对外投资-->
+  <view class="company-info" wx:if="{{showInvestment}}">
+    <view class="split-line-bt mrg-b-12"></view>
+    <view class="title" 
+         style="color:{{investmenInfo.length?'#1E1E1E':'rgba(30,30,30,.5)'}}">对外投资</view>
+    <view class="content">
+       <view class="content-mian-bd-in mrg-tb-14"
+             wx:for="{{investmenInfo}}" wx:key="item">
+         <view class="main-cell">
+           <view style="color:{{item.ppInvesteeType==1?'#40A9FF': '#1E1E1E'}}"
+             data-name="{{item.nameInvestee}}"
+             catchtap="getCompanyData">
+               {{item.name || '-'}}
+           </view>
+         </view>
+         <view class="content-mian-bd">
+            <view class="main-item">
+              <view class="text mrg-b-3">法定代表人</view>
+              <view class="font_bule"
+                 wx:if="{{item.ppLegalRepresentativeType==1}}"
+                 data-name="{{item.investeeLegalRepresentativeName}}"
+                 catchtap="getCompanyData">
+                {{item.investeeLegalRepresentativeName || '-'}}</view>
+              <view  wx:if="{{item.ppLegalRepresentativeType==2}}"
+                 class="{{item.isSomebody ? 'font_bule' : ''}}"
+                 data-somebody="{{item.isSomebody}}"
+                 data-name="{{item.investeeLegalRepresentativeName}}"
+                 catchtap="toNamesakeListPage">
+                {{item.investeeLegalRepresentativeName || '-'}}</view>
+            </view>
+            <view class="split-line"></view>
+            <view class="main-item" style="padding-left:30rpx;">
+              <view class="text mrg-b-3">注册资本</view>
+              <view>{{item.investeeSaicRegistrationCapital.value || '-'}}</view>
+            </view>
+          </view>
+          <view class="content-mian-bd">
+              <view class="main-item">
+                <view class="text mrg-b-3">投资金额</view>
+                <text>{{item.investmentCreditValue || '-'}}</text>
+              </view>
+              <view class="split-line"></view>
+              <view class="main-item" style="padding-left:30rpx;">
+                <view class="text mrg-b-3">投资比例</view>
+                <view>{{item.investmentEquityRatio || '-'}}</view>
+              </view>
+            </view>
+            <view class="content-mian-bd">
+              <view class="main-item">
+                <view class="text mrg-b-3">成立日期</view>
+                <text>{{item.investeeSaicRegistrationDate || '-'}}</text>
+              </view>
+              <view class="split-line"></view>
+              <view class="main-item" style="padding-left:30rpx;">
+                <view class="text mrg-b-3">经营状态</view>
+                <view>{{item.investeeSaicRegistrationStatus || '-'}}</view>
+              </view>
+            </view>
+       </view>
+    </view>
+  </view> 
+  <!--主要人员-->
+  <view class="company-info" wx:if="{{showManager}}">
+    <view class="split-line-bt mrg-b-12"></view>
+    <view class="title"
+        style="color:{{managerInfo.length?'#1E1E1E':'rgba(30,30,30,.5)'}}">
+        主要人员
+    </view>
+    <view class="content">
+       <view class="content-mian-bd-in mrg-tb-14" 
+         wx:for="{{managerInfo}}" wx:key="item">
+         <view class="main-person">
+           <view style="width:128rpx;"
+              class="{{item.isSomebody ? 'font_bule' : ''}}"
+              data-somebody="{{item.isSomebody}}"
+              data-name="{{item.name}}"
+              catchtap="toNamesakeListPage">
+              {{item.name || '-'}}
+           </view>
+           <view class="text">{{item.roleName || '-'}}</view>
+         </view>
+       </view>
+    </view>
+  </view>
+    <!--股东信息-->
+  <view class="company-info" wx:if="{{showPledge}}">
+    <view class="split-line-bt mrg-b-12"></view>
+    <view class="title"
+        style="color:{{equityPledgeInfo.length?'#1E1E1E':'rgba(30,30,30,.5)'}}">
+        股权出质
+    </view>
+    <view class="content">
+       <view class="content-mian-bd-in mrg-tb-14"
+             wx:for="{{equityPledgeInfo}}"
+             wx:key="item">
+          <view class="content-mian-bd mrg-t-10">
+            <view class="main-cell flex_center">
+              <view class="text">出质人：</view>
+              <view class="font_bule"
+                    wx:if="{{item.pledgorIsCompany}}"
+                    data-name="{{item.pledgorName}}"
+                    catchtap="getCompanyData">{{item.pledgorName}}</view>
+              <view wx:if="{{!item.pledgorIsCompany}}"
+                    class="{{item.isSomebody ? 'font_bule' : ''}}"
+                    data-somebody="{{item.isSomebody}}"
+                    data-name="{{item.pledgorName}}"
+                    catchtap="toNamesakeListPage">{{item.pledgorName}}</view>
+            </view>
+          </view>
+          <view class="content-mian-bd mrg-t-10">
+            <view class="main-cell flex_center">
+              <view class="text">质权人：</view>
+              <view class="font_bule" 
+                    wx:if="{{item.pledgeeIsCompany}}"
+                    data-name="{{item.pledgeeName}}"
+                    catchtap="getCompanyData">{{item.pledgeeName || '-'}}</view>        
+              <view  wx:if="{{!item.pledgeeIsCompany}}"
+                    class="{{item.isSomebody ? 'font_bule' : ''}}"
+                    data-somebody="{{item.isSomebody}}"
+                    data-name="{{item.pledgorName}}"
+                    catchtap="toNamesakeListPage">{{item.pledgeeName || '-'}}</view>
+
+            </view>
+          </view>
+          <view class="content-mian-bd mrg-t-10">
+            <view class="main-cell flex_center">
+              <view class="text">出质股权数额：</view>
+              <view>{{item.pledgeAmount || '-'}}</view>
+            </view>
+          </view>
+          <view class="content-mian-bd mrg-t-10">
+            <view class="main-cell flex_center">
+              <view class="text">股权出质设立登记日期：</view>
+              <view>{{item.date || '-'}}</view>
+            </view>
+          </view>
+          <!-- <view class="content-mian-bd mrg-t-10">
+            <view class="main-cell">
+              <view class="text mrg-b-3">出质股权状态</view>
+              <view>{{item.pledgedStatus}}</view>
+            </view>
+          </view> -->
+       </view>
+    </view>
+  </view> 
+  <!-- 单体企业维度涉案分析 -->
+  <view class="company-info" wx:if="{{showLawsuit}}">
+    <view class="split-line-bt mrg-b-12"></view>
+    <view class="title"
+        style="color:{{lawsuitInfo['@id']?'#1E1E1E':'rgba(30,30,30,.5)'}}">
+        单体企业维度涉案分析
+    </view>
+    <!-- <view class="lawsuit-loading flex_center" wx:if="{{lawsuitInfoLoad}}">
+        <view class="wx_dot_loading"></view>
+    </view> -->
+    <view class="content" wx:if="{{!lawsuitInfoLoad}}">
+       <view class="content-mian-bd">
+         <view class="main-item">
+           <view class="mrg-b-3">{{lawsuitInfo.lawsuitCountTotal || '-'}}</view>
+           <view class="text">案件数量</view>
+         </view>
+         <view class="split-line"></view>
+         <view class="main-item" style="padding-left: 30rpx;">
+            <view class="mrg-b-3">{{lawsuitInfo.lawsuitCreditTotal.value || '-'}}</view>
+            <view class="text">涉案金额</view>
+         </view>
+       </view>
+       <view class="content-mian-bd">
+         <view class="main-item">
+           <view class="mrg-b-3">{{lawsuitInfo.lawsuitCountAsPlaintiff || '-'}}</view>
+           <view class="text">担任原告的数量</view>
+         </view>
+         <view class="split-line"></view>
+         <view class="main-item" style="padding-left: 30rpx;">
+            <view class="mrg-b-3">{{lawsuitInfo.lawsuitCountAsDefendant || '-'}}</view>
+            <view class="text mrg-b-3">担任被告的数量</view>
+         </view>
+       </view>
+       <view class="content-mian-bd">
+         <view class="main-item">
+           <view class="mrg-b-3">{{lawsuitInfo.lawsuitCountAsThirdParty || '-'}}</view>
+           <view class="text">担任第三方的数量</view>
+         </view>
+         <view class="split-line"></view>
+         <view class="main-item" style="padding-left: 30rpx;">
+            <view class="mrg-b-3">{{lawsuitInfo.lawsuitCountAsOther || '-'}}</view>
+            <view class="text">担任其他角色的数量</view>
+         </view>
+       </view>
+       <view class="content-mian-bd">
+         <view class="main-item">
+           <view class="mrg-b-3">{{lawsuitInfo.lawsuitCountForWin || '-'}}</view>
+           <view class="text">胜诉数量</view>
+         </view>
+         <view class="split-line"></view>
+         <view class="main-item" style="padding-left: 30rpx;">
+            <view class="mrg-b-3">{{lawsuitInfo.lawsuitCountForLose || '-'}}</view>
+            <view class="text">败诉数量</view>
+         </view>
+       </view>
+       <view class="main-cell mrg-b-5">
+          <view class="mrg-b-3">{{lawsuitInfo.lawsuitCountForOther || '-'}}</view>
+          <view class="text">其他结果数量</view>
+       </view>
+       <view class="content-mian-bd">
+         <view class="main-item">
+           <view class="mrg-b-3">{{lawsuitInfo.lawsuitCreditForWin.value|| '-'}}</view>
+           <view class="text">胜诉收款金额</view>
+         </view>
+         <view class="split-line"></view>
+         <view class="main-item" style="padding-left: 30rpx;">
+            <view class="mrg-b-3">{{lawsuitInfo.lawsuitCreditForLose.value|| '-'}}</view>
+            <view class="text">败诉赔款金额</view>
+         </view>
+       </view>
+      </view>
+  </view>
+  <!--股东信息结束 经营异常开始-->
+  <!-- <view class="company-info">
+    <view class="title">
+      经营异常
+      <view class="title-cell title-cell_in-access" bindtap="bindShowUnusual"></view>
+    </view>
+    <view class="content" wx:if="{{showUnusual}}">
+       <view class="content-mian-bd-in" 
+             wx:for="{{unusualInfo}}"
+             wx:key="item">
+          <view class="main-cell">
+            <text>公司名称</text>
+            <view>{{item.nameCompany}}</view>
+          </view>
+          <view class="main-cell2">
+            <view class="main-item">
+              <view>列入日期</view>
+              <view>{{item.addDate}}</view>
+            </view>
+            <view class="main-item split-line">
+              <view>列入事由</view>
+              <view>{{item.addReason}}</view>
+            </view>
+          </view>
+          <view class="main-cell">
+            <view>列入作出决定机关</view>
+            <view>{{item.addByOrganization}}</view>
+          </view>
+          <view class="item-spread split-line-bt"></view>
+       </view>
+    </view>
+  </view> -->
+    <!--经营异常结束 股权出质开始-->
+  <!-- <view class="company-info">
+    <view class="title">
+      股权出质
+      <view class="title-cell title-cell_in-access"                bindtap="bindShowStock"></view>
+    </view>
+    <view class="content" wx:if="{{showStock}}">
+       <view class="content-mian-bd-in"
+             wx:for="{{equityInfo}}"
+             wx:key="item">
+         <view class="main-cell2">
+          <view class="main-item">
+            <view>企业名称</view>
+            <view>{{item.nameCompany}}</view>
+          </view>
+          <view class="main-item split-line">
+            <view>登记编号</view>
+            <view>{{item.identifier}}</view>
+          </view>
+         </view>
+         <view class="main-cell2">
+          <view class="main-item">
+            <view>出质人名称</view>
+            <view>{{item.pledgorName}}</view>
+          </view>
+          <view class="main-item split-line">
+            <view>出质人证照或证件号码</view>
+            <view>{{item.pledgorId}}</view>
+          </view>
+         </view>
+         <view class="main-cell2">
+          <view class="main-item">
+            <view>质权人名称</view>
+            <view>{{item.pledgeeName}}</view>
+          </view>
+          <view class="main-item split-line">
+            <view>质权人证照或证件号码</view>
+            <view>{{item.pledgeeId}}</view>
+          </view>
+         </view>
+         <view class="main-cell2">
+          <view class="main-item">
+            <view>出质股权数额</view>
+            <view>{{item.pledgeAmount}}</view>
+          </view>
+          <view class="main-item split-line">
+            <view>股权出质设立登记日期</view>
+            <view>{{item.pledgedPublicDate}}</view>
+          </view>
+         </view>
+         <view class="main-cell">
+           <view>出质股权状态</view>
+           <view>{{item.pledgedStatus}}</view>
+         </view>
+         <view class="item-spread split-line-bt"></view>
+       </view>
+    </view>
+  </view> -->
+    <!--股权出质结束 行政处罚开始-->
+  <!-- <view class="company-info">
+    <view class="title">
+      行政处罚
+      <view class="title-cell title-cell_in-access" bindtap="bindShowPunish">{{punishInfo.length}}</view>
+    </view>
+    <view class="content" wx:if="{{showPunish}}">
+       <view class="content-mian-bd-in" 
+          wx:for="{{punishInfo}}"    
+          wx:key="item">
+         <view class="main-cell">
+           <view>行政处罚决定书文号</view>
+           <view>{{item.identifier}}</view>
+         </view>
+         <view class="main-cell2">
+          <view class="main-item">
+            <view>作出行政处罚决定日期</view>
+            <view>{{item.decisionDate}}</view>
+          </view>
+          <view class="main-item split-line">
+            <view>作出行政处罚决定机关名称</view>
+            <view>{{item.decisionByOrganization}}</view>
+          </view>
+         </view>
+         <view class="main-cell2">
+          <view class="main-item">
+            <view>公示日期</view>
+            <view>{{item.releaseDate}}</view>
+          </view>
+          <view class="main-item split-line">
+            <view>行政处罚内容</view>
+            <view>{{item.text}}</view>
+          </view>
+         </view>
+         <view class="main-cell2">
+          <view class="main-item">
+            <view>法定代表人（负责人）姓名</view>
+            <view>{{item.nameLegalRepresentative}}</view>
+          </view>
+          <view class="main-item split-line">
+            <view>违法行为类型</view>
+            <view>{{item.decisionReason}}</view>
+          </view>
+         </view>
+         <view class="main-cell2">
+          <view class="main-item">
+            <view>公司注册号</view>
+            <view>{{basicInfo.saicRegistrationCode}}</view>
+          </view>
+         </view>
+         <view class="item-spread split-line-bt"></view>
+       </view>
+    </view>
+  </view>  -->
+    <!--行政处罚结束 法律诉讼开始-->
+   <!-- <view class="company-info">
+    <view class="title">
+      <view class="title-img">
+        <image class="images1" src="../../images/icon_basic.png"></image>
+        法律诉讼
+      </view>
+    </view>
+    <view class="law-content-wrap" wx:if="{{lawInfo.length}}">
+      <view class="law-content"
+            wx:for="{{lawInfo}}" 
+            wx:key="item"
+            id="{{item.name}}"
+            bindtap="toLawDetail">
+       <view class="content-title">{{item.name}}</view>
+       <view class="content-main">
+         <view class="text">裁判文书号</view>
+         <view >{{item.courtCaseNumber}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">案由</view>
+         <view >{{item.causeOfAction}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">审结日期</view>
+         <view >{{item.courtDecisionDate}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">案件身份</view>
+         <view >{{item['@type'][0].partyRoleName}}{{item['@type'][0].partyName}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">文书类型</view>
+         <view >{{item.courtCaseType}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">法院名称</view>
+         <view >{{item.courthouseName}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">法院所在地</view>
+         <view >{{item.courthouseLocation}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">审判程序</view>
+         <view >{{item.courtCaseStep}}</view>
+       </view>
+       <view class="split-line-bt"></view>
+      </view>       
+    </view>
+    <view wx:if="{{!lawInfo.length}}" class="weui-loadmore .weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+    </view>
+  </view> -->
+ <view class="loading-wrap">
+    <view class="lawsuit-loading flex_center" wx:if="{{moreLoading}}">
+        <view class="wx_dot_loading"></view>
+    </view>
+ </view>
+ </view>
+  <view class='bottom flex_between'
+     catchtap="toCaseListPage">
+     <view class='left'>
+         查看单体企业案件列表
+      </view>
+      <view class='right title-cell_in-access'>
+      </view>
+    <!-- <view class='btn-left flex_center' catchtap="toPrePage">
+        上一页
+    </view>
+    <view class='btn-right flex_center' catchtap="toHomeIndex">
+        返回首页
+    </view> -->
+  </view>
+</view>
+

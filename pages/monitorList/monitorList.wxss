@@ -1,0 +1,120 @@
+/* pages/monitorList/monitorList.wxss */
+.monitor-page{
+  width: 100%;
+}
+.top_total{
+  padding: 14rpx 30rpx;
+  background:rgba(243,243,243,1);
+  font-size:24rpx;
+  font-family:PingFangSC-Regular,PingFang SC;
+  font-weight:400;
+  color:rgba(30,30,30,0.5);
+  line-height:34rpx;
+}
+.company-list {
+  overflow: hidden;
+}
+.company-item1{
+  position: relative;
+  background-color: #fff;
+  min-height: 100rpx;
+  border-bottom: 2rpx solid #F3F3F3;
+}
+.company-item2{
+  position: relative;
+  margin: 30rpx;
+  background-color: #fff;
+}
+
+.company-cell_active{
+  background-color: #ececec;
+}
+.company-introduce1{
+    position:absolute;
+    z-index:5;
+    background: #fff;
+    top:0;
+    left:0;
+    right: 0;
+}
+.company-introduce2{
+    padding: 26rpx 30rpx;
+    border-bottom: 12rpx solid #F3F3F3;
+}
+.introduce-bd{
+    display: flex;
+    justify-content: space-between;
+    font-size:26rpx;
+    line-height:36rpx;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+}
+.company-item-edit{
+   position:absolute;
+   z-index:1; 
+   top:0;
+  right: -180rpx;
+  width: 180rpx;
+  height: 100%;
+  background: #FC7B81;
+  font-size:15px;
+  font-family:PingFang SC;
+  font-weight:bold;
+  line-height:21px;
+  color:rgba(255,255,255,1);
+  opacity:1;
+}
+.introduce-bd .name-wrap{
+  width: 90%;
+}
+.introduce-bd .name{
+  font-size:36rpx;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:#1E1E1E;
+}
+.introduce-bd .status{
+  width:64rpx;
+  height:36rpx;
+  border-radius:4rpx;
+  border:2rpx solid rgba(64,169,255,1);
+  font-size:24rpx;
+  text-align: center;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:rgba(64,169,255,1);
+  line-height:34rpx;
+  white-space: nowrap;
+}
+.text{
+  color:rgba(30,30,30,0.5);
+}
+.introduce-bd .main-item{
+  color: #1E1E1E;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#tabs{
+  font-size: 28rpx;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+}
+.tabs-box{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align: center
+}
+.tabs-item.selected {
+    color:#FC7D81;
+    border-bottom:4rpx solid #FC7D81;
+}
+.tabs-item {
+    width: 50%;
+    color:#1E1E1E;
+    border-bottom:2rpx solid #e9e9e9;
+}

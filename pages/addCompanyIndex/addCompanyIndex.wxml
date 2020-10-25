@@ -1,0 +1,41 @@
+<!-- 人物中心 - 新建企业搜索页面 -->
+<view class="index-page">
+   <view class="search-wrap">
+      <view 
+        name="search"
+        class="textinput" 
+        data-type="Company"
+        catchtap="focusCompany">
+        请输入公司名称
+      </view>
+      <!-- <input 
+        name="search"
+        class="textinput"
+        data-type="Company"
+        focus="{{companyFocus}}"
+        bindfocus="focusCompany"
+        value="{{companyValue}}" 
+        placeholder="请输入公司名称" /> -->
+        <image src="../../images/icon_search_add.png" bindtap="focusCompany" class="search_input1"></image>
+        <image wx:if="{{inputCompanyFlag}}" src="../../images/icon_delete.png" bindtap="deleteCompany" class="search_input2"></image>
+    </view>
+    <view class="search-wrap mrg-t-20">
+      <view 
+        name="search"
+        class="textinput" 
+        data-type="Person"
+        catchtap="focusPerson">
+        请输入人物名称
+      </view>
+      <!-- <input 
+        name="search"
+        class="textinput"
+        data-tpye="Person"
+        focus="{{personFocus}}"
+        bindfocus="focusPerson"
+        value="{{personValue}}" 
+        placeholder="请输入人物名称" /> -->
+          <image src="../../images/icon_search_add.png" bindtap="focusPerson" class="search_input1"></image>
+          <image wx:if="{{inputPersonFlag}}" src="../../images/icon_delete.png" bindtap="deletePerson" class="search_input2"></image>
+    </view>
+</view>

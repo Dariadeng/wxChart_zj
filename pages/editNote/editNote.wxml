@@ -1,0 +1,14 @@
+<!-- 自定义备注页面 -->
+<view class="note-page">
+   <view class="content">
+     <input 
+      name="edit"
+      class="noteinput" 
+      bindinput="bindinput"
+      value="{{inputValue}}"
+      placeholder="请输入备注名" />
+   </view>
+   <view class="footer">
+     <view class="btn-save flex_center" catchtap="saveNote">完成</view> 
+   </view>
+</view>

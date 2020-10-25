@@ -1,0 +1,159 @@
+<!-- 新增企业 （ 企业列表/人物列表页 ）-->
+<view class="detail-page">
+    <view class="header">
+      <view class="search-wrap">
+        <input 
+          name="search"
+          class="textinput"
+          bindinput="bindinput" 
+          bindconfirm="bindconfirm"
+          value="{{inputValue}}" 
+          focus="{{searchFocus}}"
+          placeholder="请输入名称" />
+          <image src="../../images/icon_search_add.png" bindtap="bindsearch" class="search_input1"></image>
+          <image wx:if="{{inputFlag}}" src="../../images/icon_delete.png" bindtap="bindDelete" class="search_input2"></image>
+      </view>
+      <view class="cancle-btn" catchtap="bindsearch">搜索</view>
+    </view>
+    <!-- 企业名称搜索 -->
+    <view class="content" wx:if="{{serachType == 'Company'}}">
+       <view class="recent flex_between" data-type="Company" catchtap="toHistoryPage">
+          <view>最近添加</view>
+          <view class="title-cell title-cell_in-access"></view>
+       </view>
+        <view class="detail-loading" wx:if="{{isLoading}}">
+            <view class="weui-loading"></view>
+            <view class="weui-loadmore__tips">正在加载</view>
+        </view>
+        <view class="detail-noData" wx:if="{{isNoData}}">
+              <view class="weui-loadmore .weui-loadmore_line">
+                  <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+              </view>
+        </view>
+        <view class="content-list"
+         wx:if="{{!isLoading && !isNoData}}"
+         wx:for="{{companyList}}"
+         wx:key="item">
+         <view class="item-title">{{item.name}}</view>
+         <view class="item_flex" wx:if="{{item.disableCompany || item.disableGroup}}">
+            <view class="item" 
+                data-type="company"
+                data-index="{{index}}" 
+                data-disable="{{item.disableCompany}}"
+                bindtap="addCompany"> 
+                <block wx:if="{{item.disableCompany}}">
+                    <image class="img_check" src="../../images/icon_checked_disable.png"></image> 
+                </block>
+                <block wx:else>         
+                  <block wx-if="{{!item.companyChecked}}">
+                    <view class='icon_none'></view>
+                  </block>
+                  <block wx-if="{{item.companyChecked}}">
+                    <image class="img_check" src="../../images/icon_checked.png"></image> 
+                  </block>
+                </block>
+                <text style='margin-left: 10px;'>单体企业</text>
+            </view>
+            <view class="item" 
+                data-type="group"
+                data-index="{{index}}" 
+                data-disable="{{item.disableGroup}}"
+                bindtap="addCompany"> 
+                <block wx:if="{{item.disableGroup}}">
+                    <image class="img_check" src="../../images/icon_checked_disable.png"></image> 
+                </block>
+                <block wx:else>         
+                  <block wx-if="{{!item.groupChecked}}">
+                    <view class='icon_none'></view>
+                  </block>
+                  <block wx-if="{{item.groupChecked}}">
+                    <image class="img_check" src="../../images/icon_checked.png"></image> 
+                  </block>
+                </block>
+                <text style='margin-left: 10px;'>企业集合</text>
+            </view>
+         </view>
+         <radio-group wx:else
+            class="radio-group" 
+            bindchange="radioChange"
+            data-index="{{index}}">
+            <radio class="radio"  
+              wx:key="num" 
+              value="company" 
+              checked="{{item.companyChecked}}">
+              <text class="loginLab" style='margin-left: 0px;'>单体企业</text>
+            </radio>
+            <radio class="radio" 
+              wx:key="num" 
+              value="group" 
+              checked="{{item.groupChecked}}">
+              <text class="loginLab" style='margin-left: 0px;'>企业集合</text>
+            </radio>
+          </radio-group>
+       </view>
+    </view>
+    <!-- 人名搜索搜索 -->
+    <view class="content" wx:if="{{serachType == 'Person'}}">
+      <view class="recent flex_between" data-type="Person" catchtap="toHistoryPage">
+          <view>最近添加</view>
+          <view class="title-cell title-cell_in-access"></view>
+      </view>
+      <view class="detail-loading" wx:if="{{isLoading}}">
+          <view class="weui-loading"></view>
+          <view class="weui-loadmore__tips">正在加载</view>
+      </view>
+      <view class="detail-noData" wx:if="{{isNoData}}">
+            <view class="weui-loadmore .weui-loadmore_line">
+                <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+            </view>
+      </view>
+      <view class="person-list"
+          wx:if="{{!isLoading && !isNoData}}"
+          wx:for="{{entityList}}"
+          wx:key="item"
+          wx:for-item="pitem" 
+          wx:for-index="pindex"
+          data-index="{{pindex}}"
+          data-disable="{{pitem.disableGroup}}"
+          data-type="person"
+          catchtap='select'>
+          <view class="list-left">
+            <block wx:if="{{pitem.disableGroup}}">
+                <image class="img_check" src="../../images/icon_checked_disable.png"></image> 
+            </block>
+            <block wx:else>  
+              <block wx-if="{{!pitem.checked}}">
+                <view class='icon_none'></view>
+              </block>
+              <block wx-if="{{pitem.checked}}">
+                <image class="img_check" src="../../images/icon_checked.png"></image> 
+              </block>
+            </block>
+          </view>
+          <view class="list-right">
+            <view class="title">
+              <text class="person-name">{{pitem.name}}</text>
+              他有<text style="color:#FC7B81">{{pitem.numberOfCompany}}</text>家公司，如下：
+            </view>
+            <view class="company-list" 
+                  wx:for="{{pitem.listCompanyRole}}" 
+                  wx:key="item">
+                  {{item}}
+                  <text wx:if="{{ index ==4 && index == pitem.listCompanyRole.length-1}}">等</text>
+            </view>
+          </view>
+      </view>
+    </view>
+    <view class='bottom flex_between'>
+      <view class='left flex_start'>
+        <!-- <view bindtap='backSettingPage' class='back-btn flex_center'>
+           返回确认集合范围页
+        </view>  -->
+      </view>
+      <view class='right flex_end'>
+        <view bindtap='sureSelectScope' class='sure_scope flex_center'>
+          确认
+        </view>
+      </view>
+    </view>
+</view>

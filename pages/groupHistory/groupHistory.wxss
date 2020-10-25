@@ -1,0 +1,92 @@
+/* pages/groupHistory/groupHistory.wxss */
+.history-page{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background:rgba(245,247,250,1);
+}
+.content-container{
+   border-bottom:1px solid rgba(233,233,233,1);
+}
+.content{
+   display: flex;
+   align-items: center;
+   background: #fff;
+   padding: 15rpx 20rpx;
+   border-bottom:1px solid rgba(233,233,233,1);
+}
+.content .lefts{
+  width: 60rpx;
+}
+.content .rights{
+  flex: 1;
+}
+.content .lefts .icon_none{
+  width: 28rpx;
+  height: 28rpx;
+  border: 1rpx solid #d6d6d6;
+  border-radius: 50%;
+}
+
+/* 选项卡 */
+#tabs{
+  font-size: 28rpx;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+}
+.tabs-box{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    height: 80rpx;
+    line-height: 80rpx;
+    text-align: center
+}
+.tabs-item.selected {
+    color:#FC7D81;
+    border-bottom:4rpx solid #FC7D81;
+}
+.tabs-item {
+    width: 50%;
+    color:#1E1E1E;
+    border-bottom:2rpx solid #e9e9e9;
+}
+
+/* 底部全选 */
+.bottom{
+  width: 100%;
+  height: 100rpx;
+  border-top: 1rpx solid #d6d6d6;
+  background-color: #fff;
+  position: fixed;
+  left: 0rpx;
+  bottom: 0rpx;
+}
+.bottom .left{
+  font-size: 32rpx;
+  margin-left: 30rpx;
+}
+.bottom .left .select_none{
+  width: 28rpx;
+  height: 28rpx;
+  border: 1rpx solid #d6d6d6;
+  border-radius: 50%;
+}
+.bottom .right .all{
+  color: #ff830f;
+  font-size: 26rpx;
+}
+.bottom .right .gray{
+  color: #666666;
+  font-size: 22rpx;
+}
+.bottom .right .sure{
+  margin-right: 30rpx;
+  width: 100rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background:rgba(253,125,130,1);
+  border-radius:8rpx;
+  color: #fff;
+}

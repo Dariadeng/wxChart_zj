@@ -1,0 +1,64 @@
+<!--涉诉预警列表页-->
+<view class="case-page">
+   <view class="header">
+     今日预警
+   </view>
+   <view class="content">
+      <view class="no_content flex_center" 
+          wx:if="{{todayNodata}}">
+          暂无数据
+      </view>
+      <view class="content-item"
+         wx:for="{{todayEvents}}"
+         wx:if="{{!todayNodata}}"
+         wx:key="item"
+         id="{{item['@id']}}"
+         bindtap="toCaseDetailPage">
+        <view class="top">
+          <text class="text">{{item.courtCaseNumber}}</text>
+          <text class="text">{{item.endDate||' '}}</text>
+        </view>
+        <view class="name">
+          <text style="color:{{isCompany?'#1E1E1E':'#FD7D82'}}">{{item.comName}}</text>
+          {{item.causeOfAction}}案件
+        </view>
+        <view class="bottom">  
+          <view class="bottom-cell">{{item.courtCaseType}}</view>
+          <view class="bottom-cell">{{item.winLoseCredit}}</view>
+          <view class="bottom-cell">裁判文书{{item.numberOfJudicialDocument||'0'}}篇</view>
+        </view>
+        <view class="split-line-bt mrg-t-10" wx:if="{{index !== caseList.length-1}}"></view>
+      </view>
+   </view>
+   <view class="header">
+     历史预警
+   </view>
+   <view class="content">
+      <view class="no_content flex_center" 
+          wx:if="{{historyNodata}}">
+          暂无数据
+      </view>
+      <view class="content-item"
+         wx:for="{{historyEvents}}"
+         wx:if="{{!historyNodata}}"
+         wx:key="item"
+         id="{{item['@id']}}"
+         bindtap="toCaseDetailPage">
+        <view class="top">
+          <text class="text">{{item.courtCaseNumber}}</text>
+          <text class="text">{{item.endDate||' '}}</text>
+        </view>
+        <view class="name">
+          <text style="color:{{isCompany?'#1E1E1E':'#FD7D82'}}">{{item.comName}}</text>
+          {{item.causeOfAction}}案件
+        </view>
+        <view class="bottom">  
+          <view class="bottom-cell">{{item.courtCaseType}}</view>
+          <view class="bottom-cell">{{item.winLoseCredit}}</view>
+          <view class="bottom-cell">裁判文书{{item.numberOfJudicialDocument||'0'}}篇</view>
+        </view>
+        <view class="split-line-bt mrg-t-10" wx:if="{{index !== caseList.length-1}}"></view>
+      </view>
+   </view>
+</view>
+

@@ -1,0 +1,18 @@
+/* pages/loginIndex/loginIndex.wxss */
+.logo{
+  display: flex;
+  justify-content: center;
+  height: 400rpx;
+  align-items: center;
+}
+.img-logo{
+  width: 160rpx;
+  height: 160rpx;
+}
+.btn-wrap{
+  margin: 0 50rpx;
+}
+.btn-wrap .btn{
+  color: #fff;
+  background: #FD7D82;
+}

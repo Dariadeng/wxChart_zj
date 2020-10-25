@@ -1,0 +1,89 @@
+<!--企业监控的处理  增删改查-->
+<!-- <view class="loading" wx:if="{{isLoad}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+</view> -->
+<view class="monitor-page">
+  <view class="top-container">
+   <view class="search-wrap">
+     <input 
+      name="search"
+      class="textinput" 
+      bindinput="bindinput" 
+      bindconfirm="bindconfirm"
+      value="{{inputValue}}" 
+      placeholder="输入公司名称" />
+      <image src="../../images/icon_search_add.png" bindtap="bindsearch" class="search_input1"></image>
+      <image wx:if="{{inputFlag}}" src="../../images/icon_delete.png" bindtap="bindDelete" class="search_input2"></image>
+    </view>
+    <view class="cancle-btn" catchtap="cancleSearch">取消</view>
+   </view>
+   <view class="noData" wx:if="{{isNoData}}">
+    <image class="img_data" src="../../images/icon_noData.png"></image>
+    <view class="tips1 mrg-t-20">没有搜索到相关结果</view>
+    <view class="tips2">“输入准确关键词，试一试”</view>
+   </view>
+   <view class="record-wrap" wx:if="{{showRecord}}">
+     <view class="record-nav flex_between" bindtap="toHistoryPage">
+        <view class="text">最近添加</view>
+        <view class="title-cell title-cell_in-access"></view>
+     </view>
+     <view wx:if="{{historyData.length}}"
+           wx:for="{{historyData}}"
+           wx:key="item"
+           class="content flex_between">
+         <!-- <view id="{{item.id}}" bindtap="bindDeleteGroupMember">删除</view> -->
+         <view>{{item.attributes.name}}</view>
+         <view class="text" style="white-space: nowrap;margin-left:10px;">
+          {{item.createDate}}</view>
+     </view>
+     <!-- <view class="noDataTip" wx:if="{{!historyData.length}}">暂无数据</view> -->
+   </view>
+   <view class="company-wrap" wx:if="{{!showRecord && !isNoData}}">
+      <view class="company-item"
+          wx:for="{{companyList}}"
+          wx:key="item"
+          data-name="{{item.result.name}}"
+          catchtap="toBusinessPage"
+          >
+      <view class="company-introduce">
+        <view class="introduce-bd mrg-b-18">
+            <view class="name-wrap">
+              <text wx:for="{{item.result.comName}}"
+                  wx:for-item="nameItem" 
+                  wx:key="nameItem"
+                  class="{{nameItem == inputValue ? 'gjz' : 'name'}}">{{nameItem}}</text>
+            </view>
+            <view class="status">{{item.result.saicRegistrationStatus}}</view>
+            <!-- <view class="status" wx:if="{{item.result.isInclude}}">
+              <text class="add">已包含</text>
+            </view>
+            <view class="status" wx:else>
+              <text data-index = '{{index}}'
+                    class="add"
+                    bindtap="bindCancelGroupMenber" 
+                    wx:if="{{item.result.isAdd}}">已添加</text>
+              <text data-index = '{{index}}'
+                    class="noAdd"
+                    bindtap="bindAddGroupMenber" 
+                    wx:else>+添加</text>
+            </view> -->
+        </view>
+        <view class="introduce-bd mrg-b-5">
+            <view class="main-item">
+              <view class="text mrg-b-5">法人代表人</view>
+              <view>{{item.result.nameLegalRepresentative}}</view>
+            </view>
+            <view class="main-item">
+              <view class="text mrg-b-5">注册资本</view>
+              <view>{{item.result.saicRegistrationCapital.value}}</view>
+            </view>
+            <view class="main-item">
+              <view class="text mrg-b-5">成立日期</view>
+              <view>{{item.result.foundingDate || '-'}}</view>
+            </view>
+        </view>
+      </view>
+    </view>
+   </view>
+</view>

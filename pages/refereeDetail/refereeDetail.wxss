@@ -1,0 +1,82 @@
+/* pages/lawDetail/lawDetail.wxss */
+.company-introduce{
+    padding: 20rpx 40rpx;
+    /* border-bottom: 4rpx solid #F3F3F3; */
+}
+.company-introduce .introduce-bd{
+    display: flex;
+    justify-content: space-between;
+    font-size:26rpx;
+    line-height:36rpx;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+}
+.introduce-bd .name{
+  font-size:32rpx;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:#1E1E1E;
+  line-height:44rpx;
+}
+.introduce-bd .status{
+  width:64rpx;
+  height:36rpx;
+  border-radius:4rpx;
+  border:2rpx solid rgba(64,169,255,1);
+  font-size:24rpx;
+  text-align: center;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:rgba(64,169,255,1);
+  line-height:34rpx;
+}
+.text{
+  color:rgba(30,30,30,0.5);
+}
+.title{
+  font-size:32rpx;
+  font-family:PingFangSC-Medium,PingFang SC;
+  font-weight:500;
+  color:rgba(30,30,30,1);
+  line-height:44rpx;
+}
+.law-content .mian-bd{
+    font-size:28rpx;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(30,30,30,1);
+    line-height:40rpx;
+}
+.law-content-wrap .content-main{
+    display: flex;
+    /* justify-content: space-between; */
+    margin-bottom: 16rpx;
+    font-size:28rpx;
+    font-family:PingFangSC-Regular,PingFang SC;
+    font-weight:400;
+    color:rgba(30,30,30,1);
+    line-height:40rpx;
+}
+.law-content-wrap .content-main .text{
+   width: 200rpx;
+   color: rgba(0,0,0,.5);
+}
+.law-content-wrap .content-title{
+    margin-bottom: 16rpx;
+    font-size:32rpx;
+    font-family:PingFangSC-Medium,PingFang SC;
+    font-weight:500;
+    color:rgba(0,0,0,1);
+    line-height:44rpx
+}
+.law-content .loading{
+   width: 100%;
+   min-height:200rpx;
+}
+.company-info {
+  padding: 10rpx 40rpx;
+  min-height: 250rpx;
+}
+.company_text{
+  color: #40A9FF
+}

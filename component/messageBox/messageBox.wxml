@@ -1,0 +1,14 @@
+<!-- 消息弹窗 -->
+<view class="dialog-page flex_center" wx:if="{{isShow}}">
+   <view class="main-content">
+      <view class="close-wrap" catchtap="closeDialog">
+        <view class="close"></view>
+      </view>
+      <view class="content">
+         <slot name="content"></slot>
+      </view>
+      <view class="btn_container">
+         <slot name="myBtn"></slot>
+      </view>
+   </view>
+</view>

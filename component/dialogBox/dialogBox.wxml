@@ -1,0 +1,17 @@
+<!--提示弹窗-->
+<view class="dialog-page flex_center" wx:if="{{isShow}}">
+   <view class="main-content">
+      <view class="title flex_center">
+         <slot name="title"></slot>
+      </view>
+      <view class="content">
+         <slot name="content"></slot>
+      </view>
+      <view class="way">
+         <slot name="way"></slot>
+      </view>
+   </view>
+   <image class="img_cancel" 
+          catchtap="closeDialog"
+          src="../../images/icon_pop_cancel.png"></image>
+</view>

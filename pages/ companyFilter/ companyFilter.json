@@ -1,0 +1,10 @@
+{
+  "usingComponents": {
+     "my-dialog":"/component/dialogBox/dialogBox"
+  },
+  "backgroundTextStyle": "dark",
+  "navigationBarBackgroundColor": "#FC7B81",
+  "navigationBarTitleText": "企业集合",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
+}

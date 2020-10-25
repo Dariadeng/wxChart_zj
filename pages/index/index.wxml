@@ -1,0 +1,26 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="title">企业涉诉风险预警（内测版）</view>
+  <view class="search-wrap">
+    <view 
+      name="search"
+      class="textinput" 
+      catchtap="bindfocus">
+      请输入公司名称
+    </view>
+    <!-- <input 
+      name="search"
+      class="textinput" 
+      catchtap="bindfocus" 
+      focus="{{companyFocus}}"
+      value="{{inputValue}}"
+      placeholder="请输入公司名称" /> -->
+      <image wx:if="{{!inputFlag}}"
+             src="../../images/icon_search_add.png"
+             catchtap="bindsearch" class="search_input"></image>
+      <image wx:if="{{inputFlag}}" 
+      src="../../images/icon_delete.png" 
+      catchtouchstart="bindDelete" 
+      class="search_input2"></image>
+  </view>
+</view>

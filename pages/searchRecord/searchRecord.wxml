@@ -1,0 +1,80 @@
+<!--搜索页面，历史搜索，热门搜索-->
+<view class="record-page">
+  <view class="top-container">
+   <view class="search-wrap">
+     <input 
+      name="search"
+      class="textinput"
+      focus="{{companyFocus}}"
+      bindinput="bindinput" 
+      bindconfirm="bindconfirm"
+      value="{{inputValue}}" 
+      placeholder="输入公司名称" />
+      <image src="../../images/icon_search_add.png" bindtap="bindsearch" class="search_input1"></image>
+      <image wx:if="{{inputFlag}}" src="../../images/icon_delete.png" bindtap="bindDelete" class="search_input2"></image>
+    </view>
+    <view class="cancle-btn" catchtap="bindconfirm">搜索</view>
+   </view>
+   <view class="noData" wx:if="{{isNoData}}">
+    <image class="img_data" src="../../images/icon_noData.png"></image>
+    <view class="tips1 mrg-t-20">没有搜索到相关结果</view>
+    <view class="tips2">“输入准确关键词，试一试”</view>
+   </view>
+   <!-- 联想搜索结果 -->
+   <view class="record-wrap" wx:if="{{!showRecord}}">
+     <view wx:if="{{bindSource.length}}"
+           wx:for="{{bindSource}}"
+           wx:key="item"
+           class="content">
+         <view class="content-item result_flex" 
+            data-name="{{item.result.name}}" 
+            id="{{item.result['@id']}}" 
+            bindtap="itemtap">
+            <image src="../../images/icon_search_add.png" class="search_result"></image>
+            <view>{{item.result.name}}</view>
+         </view>
+         <view class="split-line-bt"></view>
+     </view>
+   </view>
+   <!-- 热门搜索 -->
+   <view class="record-wrap" wx:if="{{showRecord}}">
+     <view class="record-nav flex_between" bindtap="toHistoryPage">
+        <view class="text">热门搜索</view>
+     </view>
+     <view wx:if="{{hotSearchData.length}}"
+           wx:for="{{hotSearchData}}"
+           wx:key="item"
+           id="{{item.id}}" 
+           data-name="{{item.companyName}}" 
+           bindtap="itemtap"
+           class="content">
+         <view class="content-item flex_between">
+            <view>{{item.companyName}}</view>
+         </view>
+         <view class="split-line-bt"></view>
+     </view>
+   </view>
+   <!-- 历史搜索 -->
+   <view class="record-wrap" wx:if="{{showRecord}}">
+     <view class="record-nav flex_between" bindtap="toHistoryPage">
+        <view class="text">历史搜索</view>
+     </view>
+     <view wx:if="{{searchRecord.length}}"
+           wx:for="{{searchRecord}}"
+           wx:key="item"
+           id="{{item.id}}" 
+           data-name="{{item.companyName}}" 
+           data-type="{{item.type}}"
+           bindtap="itemtap"
+           class="content">
+         <view class="content-item flex_between">
+            <view>{{item.companyName}}</view>
+            <view class="text" style="white-space: nowrap;margin-left:10px;">
+              {{item.createAt}}
+            </view>
+         </view>
+         <view class="split-line-bt"></view>
+     </view>
+   </view>
+</view>
+

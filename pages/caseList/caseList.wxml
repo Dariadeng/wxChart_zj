@@ -1,0 +1,45 @@
+<!--集团案件列表页-->
+<view class="noData" wx:if="{{isNoData}}">
+    <view class="weui-loadmore .weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+    </view>
+</view>
+<view class="case-page">
+   <view class="header flex_between">
+     <view class="title flex_between">
+       <view class="one_line_omit">{{coreName}}</view>
+       <text class="title_block block_blue" wx:if="{{isCompany}}">单体企业</text>
+       <text class="title_block block_orange" wx:else>企业集合</text>
+     </view>
+   </view>
+   <view class="loading" wx:if="{{isLoading}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+   <view class="content" wx:if="{{!isLoading}}">
+      <view class="content-item"
+         wx:for="{{caseList}}"
+         wx:key="item"
+         id="{{item['kgId']}}"
+         bindtap="toRefereeListPage">
+        <view class="top">
+          <text class="text">{{item.lastCaseNumber}}</text>
+          <text class="text">{{item.lastDecisionDate||' '}}</text>
+        </view>
+        <view class="name">
+          <text style="color:{{isCompany?'#1E1E1E':'#FD7D82'}}">{{item.companyName}}</text>
+          {{item.causeOfAction}}案件
+        </view>
+        <view class="bottom">  
+          <view class="bottom-cell">{{item.caseStep}}</view>
+          <!-- <view class="bottom-cell">{{item.causeOfAction}}</view> -->
+          <view class="bottom-cell">{{item.winLoseCredit}}</view>
+          <view class="bottom-cell">裁判文书{{ item.totalJD || '0' }}篇</view>
+        </view>
+        <view class="split-line-bt mrg-t-10"></view>
+      </view>
+      <view class="company-loading flex_center" wx:if="{{caseLoading}}">
+        <view class="wx_dot_loading"></view>
+      </view>
+   </view>
+</view>

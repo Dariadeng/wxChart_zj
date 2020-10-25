@@ -1,0 +1,340 @@
+<!-- 企业集合 -->
+<view class="loading" wx:if="{{isLoading}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+</view>
+<view class="noData" wx:if="{{isNoData}}">
+    <view class="weui-loadmore .weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+    </view>
+</view>
+<view class="group-page" wx:if="{{!isLoading && !isNoData}}">
+  <view class="header" 
+    style="height:{{groupType == 'Company' ?'364rpx':'350rpx'}}">
+    <view class="group_title" wx:if="{{groupType == 'Company'}}">
+       <text class="one_line_omit">{{companyCoreName}}</text>
+       <text class="title_block">企业集合</text>
+    </view>
+    <view class="introduce-bd" style="padding-top:{{groupType == 'Person' ? '40rpx;':''}}">
+        <view class="introduce-loading" wx:if="{{isMainLoading}}">
+            <view class="weui-loading"></view>
+        </view>
+        <view class="canvasBox">
+          <view class="progress_bg_wrap">
+           <canvas class="progress_bg" canvas-id="canvasProgressbg" />
+          </view>
+          <view class="progress_canvas_wrap">
+           <canvas class="progress_canvas" canvas-id="canvasProgress" />
+          </view>
+          <!-- <canvas class="progress_bg" canvas-id="canvasProgressbg" />
+          <canvas class="progress_canvas" canvas-id="canvasProgress" />  -->
+          <view class="progress_text">
+            <text class='progress_info'> {{progress_txt}}</text>分
+          </view>
+        </view>
+        <view class="main-item">
+          <view class="num mrg-b-5">{{mainData.lawsuitCountTotal}}件</view>
+          <view class="text">集合案件数量</view>
+        </view>
+        <view class="split-line"></view>
+        <view class="main-item" style="padding-left: 30rpx;">
+          <view class="num  mrg-b-5">{{mainData.lawsuitCreditTotal.value}}</view>
+          <view class="text">集合涉案金额</view>
+        </view>
+    </view>
+    <view class="introduce-bd mrg-t-5">
+        <view class="name">
+           企业集合涉诉风险指数
+           <!-- <image class="images1" 
+                  bindtap="openRiskDialog" src="../../images/icon_tips.png"></image> -->
+        </view>
+        <view class="detail flex_between"> 
+           <view class="orderBy" catchtap="showOrder">
+            <image class="orderBy-img" src="../../images/icon_order.png"></image>
+           </view> 
+           <view class="split-line" style="height: 28rpx;"></view>  
+           <view class="flex_between mrg-l-10" catchtap="toSettingPage">
+              集合拓展 
+              <view class="title-cell title-cell_in-access"></view>
+           </view>
+        </view>
+    </view>
+  </view>
+  <view class="content">
+    <view class="order-mask" catchtap="closeMask"  wx:if="{{orderFlag}}"></view>
+    <view class="filter-box filter-extend" wx:if="{{orderFlag}}">
+        <view class="list-item flex_between"
+              wx:for="{{orderType}}"
+              wx:key="index"
+              data-index="{{index}}" 
+              bindtap="orderGroup">
+            <view class="item">
+              <image class="filter-img" 
+                 wx:if="{{index === 0}}"
+                 src="../../images/icon_equity.png"></image>
+              <image class="filter-img" 
+                 wx:if="{{index === 1}}"
+                 src="../../images/icon_law.png"></image>
+              <text class="name">{{item.name}}</text>
+            </view>
+            <view class="item-select" wx:if="{{currentOrderIndex === index}}">
+              <image class="filter-img" src="../../images/icon_hook.png"></image>
+            </view>
+        </view>
+    </view>
+    <!-- 核心企业 -->
+    <view class="company-wrap">
+      <view class="content-title">
+          核心企业：<text style="color:#FC7B81">{{coreCompanyTotal}}</text>家
+      </view>
+      <view class="company-list"
+          style="color:{{item.isDelete ?'rgba(30,30,30,.3)':''}}"
+          wx:for="{{coreCompanyList}}"
+          wx:key="item"
+          data-name="{{item.name}}"
+          data-lawsuit="{{item.kycReport.lawsuitCountTotal}}"
+          id="{{item['@id']}}"
+          catchtap="toRiskPage">
+          <view class="company_title"
+                style="color:{{item.isDelete ?'rgba(30,30,30,.3)':''}}">
+            <view class="flex_center">
+                <text>{{item.name}}</text>
+            </view>
+            <view class="grade">
+              <view class="type_block block_orange" 
+                        wx:if="{{item.isCoreCompany}}">核心企业</view>
+              <view class="type_block block_blue" wx:if="{{item.isCustomize}}">自定义</view>
+              <!-- <image class="images1" 
+                     src="../../images/icon_tips_w.png"></image>  -->
+              <block wx:if="{{item['@id'] && item['@id'].length != 36}}">
+                <text class="grade-num">{{item.kycReport.riskScoreByLawsuit || 0 }}</text>
+                分
+              </block>
+            </view>
+          </view>
+          <block wx:if="{{item.extType[1]}}">
+            <view class="main-cell mrg-b-5">
+                <text class="text">总共持股： </text>
+                {{item.extType[1].showEquityRatio }}%  
+            </view>
+          </block>
+          <block wx:if="{{item.extType[2]}}">
+            <view class="main-cell mrg-b-5">
+                <text class="text">总共持股：</text>
+                {{item.extType[2].showEquityRatio}}%  
+            </view>
+          </block>
+          <view class="main-cell mrg-b-5" wx:if="{{!(item.extType['-1'] || item.extType[6])}}">
+              <text class="text">关联关系：</text>
+              <block wx:if="{{item.extType[1] && item.extType[1].editType !== 'DEL' || item.isDelete}}">
+                 股东关系;
+              </block>
+              <block wx:if="{{item.extType[2] && item.extType[2].editType !== 'DEL' || item.isDelete}}">
+                 对外投资关系;
+              </block>
+              <block wx:if="{{item.extType[3] && item.extType[3].editType !== 'DEL' || item.isDelete}}">
+                该公司与{{item.extType[3].nameCompany}}名称相似;
+              </block>
+              <block wx:if="{{item.extType[4] && item.extType[4].editType !== 'DEL' || item.isDelete}}">
+                该公司与{{item.extType[4].nameCompany}}地址相邻;
+              </block>
+              <block wx:if="{{item.extType[5] && item.extType[5].editType !== 'DEL' || item.isDelete}}">
+                人物实体链接({{item.extType[5].namePerson}});
+              </block>
+          </view>
+          <block wx:if="{{item['@id'] && item['@id'].length != 36}}">
+            <view class="split-line-bt"></view> 
+            <view class="main-cell mrg-tb-5 align_center"
+                  data-name="{{item.name}}"
+                  data-index="{{index}}"
+                  data-type="core"
+                  catchtap="getControlledData">
+                <view class="controller-cell controller-cell_in {{item.showController?'controller-cell_expand':'controller-cell_shrink'}}"></view>
+                <text class="text" style="color:#40A9FF">公司实际控制人</text>
+            </view>
+            <view class="main-cell mrg-b-5" 
+                  wx:if="{{item.showController}}">
+                <block wx:if="{{item.noControllerData}}">
+                  <view class="text flex_center" style="width: 100%;font-size: 26rpx;">暂无数据</view>
+                </block>
+                <block wx:else>
+                  <text class="text">{{item.controllerData.actualController}}</text>
+                  <text class="text">({{item.controllerData.controllerRatio}}%)</text>
+                  <image class="path_img"    
+                        wx:if="{{item.controllerData.actualControllerType == 1}}"  
+                        src="../../images/icon_path.png"
+                        data-beginname="{{item.controllerData.actualController}}"
+                        data-beginid="{{item.controllerData.idActualController}}"
+                        data-endname="{{item.controllerData.nameCompany}}"
+                        data-endid="{{item.controllerData.idCompany}}"
+                        data-ratio="{{item.controllerData.controllerRatio}}"
+                        catchtap="toControlledPage"></image> 
+                </block>
+            </view>
+            <view class="split-line-bt"></view> 
+            <view class="content-mian-bd"  style="margin-top:10rpx">
+              <view class="main-item">
+                <text class="text">案件数量：</text>{{item.kycReport.lawsuitCountTotal?item.kycReport.lawsuitCountTotal+'件':'-'}}
+              </view>
+              <view class="main-item">
+                <text class="text">裁判文书：</text>{{item.kycReport.judicialDocumentCountTotal?item.kycReport.judicialDocumentCountTotal+'篇':'-'}} 
+              </view>
+            </view>  
+            <view class="content-mian-bd">
+              <view class="main-item">
+                  <text class="text">败诉占比：</text>
+                  {{item.kycReport.loseRatio || '-'}}
+              </view>
+              <view class="main-item">
+                  <text class="text">被告占比：</text>
+                  {{item.kycReport.defendantRatio || '-'}}
+              </view>
+            </view>
+            <view class="content-mian-bd">
+              <view class="main-item">
+                  <text class="text">涉案金额：</text>
+                  {{item.kycReport.lawsuitCreditTotalValue || '-'}}
+              </view>
+              <view class="main-item">
+                  <text class="text">败诉付款：</text>
+                  {{item.kycReport.lawsuitCreditForLoseValue || '-'}}
+              </view>
+            </view>
+          </block>
+      </view>
+      <view class="company-loading flex_center" wx:if="{{coreLoading}}">
+        <view class="wx_dot_loading"></view>
+      </view>
+    </view>
+    <!-- 关联企业 -->
+    <view class="company-wrap" wx:if="{{isShowMemberList}}">
+      <view class="content-title">
+          关联企业：<text style="color:#FC7B81">{{memberTotal}}</text>家
+      </view>
+      <view class="company-list"
+          style="color:{{item.isDelete ?'rgba(30,30,30,.3)':''}}" 
+          wx:for="{{memberList}}"
+          wx:key="item"
+          data-name="{{item.name}}"
+          data-lawsuit="{{item.kycReport.lawsuitCountTotal}}"
+          id="{{item['@id']}}"
+          catchtap="toRiskPage">
+          <view class="company_title"
+            style="color:{{item.isDelete ?'rgba(30,30,30,.3)':''}}"  >
+            <view class="flex_center">
+                <text>{{item.name}}</text>
+            </view>
+            <view class="grade">
+              <view class="type_block block_blue" wx:if="{{item.isCustomize}}">自定义</view>
+              <block wx:if="{{item['@id'] && item['@id'].length != 36}}">
+                <text class="grade-num">{{item.kycReport.riskScoreByLawsuit || 0 }}</text>
+                  分
+              </block>
+            </view>
+          </view>
+          <block wx:if="{{item.extType[1]}}">
+            <view class="main-cell mrg-b-5">
+                <text class="text">总共持股： </text>
+                {{item.extType[1].showEquityRatio}}%  
+            </view>
+          </block>
+          <block wx:if="{{item.extType[2]}}">
+            <view class="main-cell mrg-b-5">
+                <text class="text">总共持股：</text>
+                {{item.extType[2].showEquityRatio}}%  
+            </view>
+          </block>
+          <view class="main-cell mrg-b-5" wx:if="{{!(item.extType['-1'] || item.extType[6])}}">
+              <text class="text">关联关系：</text>
+              <block wx:if="{{item.extType[1] && item.extType[1].editType !== 'DEL' || item.isDelete }}">
+                 股东关系;
+              </block>
+              <block wx:if="{{item.extType[2] && item.extType[2].editType !== 'DEL' || item.isDelete}}">
+                 对外投资关系;
+              </block>
+              <block wx:if="{{item.extType[3] && item.extType[3].editType !== 'DEL' || item.isDelete}}">
+                该公司与{{item.extType[3].nameCompany}}名称相似;
+              </block>
+              <block wx:if="{{item.extType[4] && item.extType[4].editType !== 'DEL' || item.isDelete}}">
+                该公司与{{item.extType[4].nameCompany}}地址相邻;
+              </block>
+              <block wx:if="{{item.extType[5] && item.extType[5].editType !== 'DEL' || item.isDelete}}">
+                人物实体链接({{item.extType[5].namePerson}});
+              </block>
+          </view>
+          <block wx:if="{{item['@id'].length != 36}}">
+            <view class="split-line-bt"></view> 
+            <view class="main-cell mrg-tb-5 align_center"
+                  data-name="{{item.name}}"
+                  data-index="{{index}}"
+                  data-type="member"
+                  catchtap="getControlledData">
+                <view class="controller-cell controller-cell_in {{item.showController?'controller-cell_expand':'controller-cell_shrink'}}"></view>
+                <text class="text" style="color:#40A9FF">公司实际控制人</text>
+            </view>
+            <view class="main-cell mrg-b-5" 
+                  wx:if="{{item.showController}}">
+                <block wx:if="{{item.noControllerData}}">
+                  <view class="text flex_center" style="width: 100%;font-size: 26rpx;">暂无数据</view>
+                </block>
+                <block wx:else>
+                  <text class="text">{{item.controllerData.actualController}}</text>
+                  <text class="text">({{item.controllerData.controllerRatio}}%)</text>
+                  <image class="path_img"    
+                        wx:if="{{item.controllerData.actualControllerType == 1}}"  
+                        src="../../images/icon_path.png"
+                        data-beginname="{{item.controllerData.actualController}}"
+                        data-beginid="{{item.controllerData.idActualController}}"
+                        data-endname="{{item.controllerData.nameCompany}}"
+                        data-endid="{{item.controllerData.idCompany}}"
+                        data-ratio="{{item.controllerData.controllerRatio}}"
+                        catchtap="toControlledPage"></image> 
+                </block>
+            </view>
+            <view class="split-line-bt"></view> 
+            <view class="content-mian-bd"  style="margin-top:15rpx">
+              <view class="main-item">
+                <text class="text">案件数量：</text>{{item.kycReport.lawsuitCountTotal?item.kycReport.lawsuitCountTotal+'件':'-'}}
+              </view>
+              <view class="main-item">
+                <text class="text">裁判文书：</text>{{item.kycReport.judicialDocumentCountTotal?item.kycReport.judicialDocumentCountTotal+'篇':'-'}} 
+              </view>
+            </view>  
+            <view class="content-mian-bd">
+              <view class="main-item">
+                  <text class="text">败诉占比：</text>
+                  {{item.kycReport.loseRatio || '-'}}
+              </view>
+              <view class="main-item">
+                  <text class="text">被告占比：</text>
+                  {{item.kycReport.defendantRatio || '-'}}
+              </view>
+            </view>
+            <view class="content-mian-bd">
+              <view class="main-item">
+                  <text class="text">涉案金额：</text>
+                  {{item.kycReport.lawsuitCreditTotalValue || '-'}}
+              </view>
+              <view class="main-item">
+                  <text class="text">败诉付款：</text>
+                  {{item.kycReport.lawsuitCreditForLoseValue || '-'}}
+              </view>
+            </view>
+          </block>
+      </view>
+      <view class="company-loading flex_center" wx:if="{{companyLoading}}">
+        <view class="wx_dot_loading"></view>
+      </view>
+      <view class="company-loading flex_center" wx:if="{{isMemberNoData}}">
+        <view class="weui-loadmore .weui-loadmore_line">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">等待用户添加</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="bottom flex_center" catchtap="sureListScope">
+    <view class="save-btn flex_center">
+      企业集合涉诉详情
+    </view>
+  </view>
+</view>

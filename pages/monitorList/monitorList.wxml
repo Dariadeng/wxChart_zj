@@ -1,0 +1,102 @@
+<!--我的监控列表页面-->
+<!-- <view class="loading" wx:if="{{isLoad}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+</view>
+<view class="noData" wx:if="{{isNoData}}">
+    <view class="weui-loadmore .weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+    </view>
+</view> wx:if="{{!isLoad && !isNoData}}" -->
+<view class="monitor-page" >
+   <!-- <view class="top_total">
+      共监控<text style="color:#FC7B81">{{companyList.length}}</text>个企业集合
+   </view> -->
+   <view id='tabs'>
+      <view class='tabs-box'>
+        <block wx:for="{{['企业集合','单体企业']}}" wx:key="index">
+          <view class="tabs-item {{currentTabIndex == index ? 'selected' : '' }}"      bindtap='onTabsItemTap'data-index='{{index}}'>
+            {{item}}      
+          </view>
+        </block>
+      </view>
+      <view class='ordert-detail'>
+        <view hidden='{{currentTabIndex != 0}}' class="company-list">
+          <view class="company-item1" 
+             style="transform:translateX({{item.x/2}}px);"
+              wx:for="{{groupList}}"
+              wx:key="item" 
+              data-name="{{item.remarkName || item.attributes.name}}"
+              id="{{item.resourceId}}" 
+              bindtap="toGroupPage" 
+              data-index="{{index}}" 
+              bindtouchstart='touchstart' 
+              bindtouchmove='touchmove' 
+              bindtouchend='touchend'
+              hover-class="company-cell_active">
+            <view class="company-introduce1">
+              <view class="introduce-bd" style="padding: 16px 15px;">
+                  <view class="flex_between">
+                    <view class="name">{{item.remarkName || item.name}}</view>
+                  </view>
+                  <!-- <view class="status" wx:if="{{item.groupType == 1}}">
+                    {{item.saicRegistrationStatus}}
+                  </view> -->
+              </view>
+              <!-- <view class="introduce-bd mrg-b-5" wx:if="{{item.groupType == 1}}">
+                  <view class="main-item">
+                    <view class="text mrg-b-5">法人代表人</view>
+                    <view>{{item.nameLegalRepresentative}}</view>
+                  </view>
+                  <view class="main-item">
+                    <view class="text mrg-b-5">注册资本</view>
+                    <view>{{item.saicRegistrationCapital.value}}</view>
+                  </view>
+                  <view class="main-item">
+                    <view class="text mrg-b-5">成立日期</view>
+                    <view>{{item.saicRegistrationDate || '-'}}</view>
+                  </view>
+              </view> -->
+            </view>
+            <view class="company-item-edit flex_center" 
+                  data-id="{{item.resourceId}}"
+                  data-name="{{item.remarkName || item.attributes.name}}"
+                  data-type="group"
+                  catchtap="toNotePage"><text>备注</text></view>
+          </view>
+        </view>
+        <view hidden='{{currentTabIndex != 1}}'>
+           <view class="company-item2" 
+              wx:for="{{companyList}}"
+              wx:key="item" 
+              data-name="{{item.name}}"
+              id="{{item['@id']}}" 
+              bindtap="toGroupPage" 
+              hover-class="company-cell_active">
+            <view class="company-introduce2">
+              <view class="introduce-bd mrg-b-18">
+                  <view class="flex_between">
+                    <view class="name">{{item.name}}</view>
+                  </view>
+                  <view class="status">{{item.saicRegistrationStatus}}</view>
+              </view>
+              <view class="introduce-bd mrg-b-5">
+                  <view class="main-item">
+                    <view class="text mrg-b-5">法人代表人</view>
+                    <view>{{item.nameLegalRepresentative}}</view>
+                  </view>
+                  <view class="main-item">
+                    <view class="text mrg-b-5">注册资本</view>
+                    <view>{{item.saicRegistrationCapital.value}}</view>
+                  </view>
+                  <view class="main-item">
+                    <view class="text mrg-b-5">成立日期</view>
+                    <view>{{item.foundingDate || '-'}}</view>
+                  </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+</view>

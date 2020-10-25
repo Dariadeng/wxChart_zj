@@ -1,0 +1,46 @@
+<!--pages/loginIndex/loginIndex.wxml-->
+<view class="loginIndex-page">
+  <view class="logo">
+    <image src="../../images/icon_logo.png" class="img-logo"></image>
+  </view>
+  <view class="btn-wrap">
+  <!--       open-type="getPhoneNumber"  getUserInfo      lang="zh_CN"  
+      bindgetphonenumber="getPhoneNumber"  bindGetUserInfo-->
+     <button class="btn"
+      open-type="getPhoneNumber" 
+      bindgetphonenumber="getPhoneNumber">微信登录</button>
+     <!-- <button class="btn">手机号登录/注册</button> -->
+     <!-- <view>账号登录</view> -->
+  </view>
+  <!-- 设置弹出菜单 -->
+  <view class="weui-demo-dialog {{istrue ? 'weui-demo-dialog_show' : ''}}">
+    <view class="weui-mask" bindtap="closeDialog"></view>
+    <view class="weui-actionsheet {{istrue ? 'weui-actionsheet_toggle' : ''}}" catchtap="stopEvent">
+        <view class="weui-actionsheet__title">
+            <view class="weui-actionsheet__title-list">你的手机号码</view>
+            <view class="weui-actionsheet__title-text">{{phoneNumber}}</view>
+        </view>
+        <view class="weui-actionsheet__menu">
+            <view class="weui-actionsheet__cell">
+               <view class="left">原告占比</view>
+               <view class="right">0.1</view>
+            </view>
+            <view class="weui-actionsheet__cell">
+               <view class="left">被告占比</view>
+               <view class="right">0.25</view>
+            </view>
+            <view class="weui-actionsheet__cell">
+               <view class="left">败诉占比</view>
+               <view class="right">0.25</view>
+            </view>
+            <view class="weui-actionsheet__cell">
+               <view class="left">败诉付款总额</view>
+               <view class="right">0.4</view>
+            </view>
+        </view>
+        <view class="weui-actionsheet__action">
+            <view class="weui-actionsheet__btn" bindtap="closeDialog">取消</view>
+        </view>
+    </view>
+  </view>
+</view>

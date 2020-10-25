@@ -1,0 +1,61 @@
+<!--集团案件详情页-->
+<view class="caseDetail-page">
+    <!-- 主要实体信息 -->
+    <view class="company-introduce">
+      <view class="law-content-wrap">
+        <view class="law-content">
+          <view class="content-title">{{mainEntity.companyName}}{{mainEntity.causeOfAction}}案件</view>
+          <view class="content-main">
+            <view class="text">裁判文书</view>
+            <view >{{mainEntity.totalJD || '0'}}篇</view>
+          </view>
+          <view class="content-main">
+            <view class="text">审判环节</view>
+            <view >{{mainEntity.caseStep}}</view>
+          </view>
+          <view class="content-main">
+            <view class="text">案件身份</view>
+            <view >{{mainEntity.name || '-'}}</view>
+          </view>
+          <view class="content-main">
+            <view class="text">判决结果</view>
+            <view >{{mainEntity.nameWinLose}}</view>
+          </view>
+          <!-- <view class="split-line-bt"></view> -->
+        </view>       
+      </view>
+    </view>
+    <view class="header">
+      <view class="title">
+        <view class="title-img">
+          <image class="images1" src="../../images/icon_law.png"></image>
+          裁判文书列表
+        </view>
+      </view>
+    </view>
+    <view class="loading" wx:if="{{isLoading}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+    <view class="content" wx:else>
+        <view class="content-item"
+           wx:for="{{caseDetailData}}"
+           data-idx="{{index}}"
+           wx:key="index"
+           id="{{item['kgId']}}"
+           catchtap="toRefereeDetailPage">
+          <view class="top">
+            <text class="text">{{item.caseNumber}}</text>
+            <text class="text">{{item.decisionDate||' '}}</text>
+          </view>
+          <view class="name">{{item.name}}</view>
+          <view class="bottom">  
+            <view class="bottom-cell">{{item.roleName || ' '}}</view>
+            <view class="bottom-cell">{{item.courtCaseStep}}</view>
+            <view class="bottom-cell">{{item.courtCaseType}}</view>
+            <view class="bottom-cell">{{item.winLoseCredit}}</view>
+          </view>
+          <view class="split-line-bt mrg-t-10"></view>
+        </view>
+    </view>
+</view>

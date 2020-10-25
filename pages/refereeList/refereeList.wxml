@@ -1,0 +1,95 @@
+<!--裁判文书列表-->
+<view class="loading" wx:if="{{isLoad}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+</view>
+<view class="referee-page">
+   <view class="header flex_between">
+     <view class="title">裁判文书列表</view>
+     <view class="sort-wrap flex_between">
+        <view class="sort flex_between" bindtap="clickSort">
+            {{sortByName}}
+            <view class="arrow"></view>
+        </view>
+        <view class="sort flex_between">
+            {{screenByName}}
+            <view class="arrow"></view>
+        </view>
+     </view>
+   </view>
+   <view class="content">
+      <view class="content-item" bindtap="toRefereeDetailPage">
+        <view class="top">
+          <text class="text">(2119）陕323号</text>
+          <text class="text">2018-09-08</text>
+        </view>
+        <view class="name">案件名名称：公司名+案由+“案件”</view>
+        <view class="bottom">  
+          <view class="bottom-cell">原告</view>
+          <view class="bottom-cell">一审</view>
+          <view class="bottom-cell">300万</view>
+        </view>
+        <view class="split-line-bt mrg-t-10"></view>
+      </view>
+      <view class="content-item" bindtap="toRefereeDetailPage">
+        <view class="top">
+          <text class="text">(2119）陕323号</text>
+          <text class="text">2018-09-08</text>
+        </view>
+        <view class="name">案件名名称：公司名+案由+“案件”</view>
+        <view class="bottom">  
+          <view class="bottom-cell">原告</view>
+          <view class="bottom-cell">一审</view>
+          <view class="bottom-cell">300万</view>
+        </view>
+        <view class="split-line-bt mrg-t-10"></view>
+      </view>
+   </view>
+   <!-- <view class="company-info">
+    <view class="law-content-wrap" wx:if="{{ lawInfo.length}}">
+      <view class="law-content"
+            wx:for="{{lawInfo}}" 
+            wx:key="item"
+            id="{{item.name}}"
+            bindtap="toLawDetail">
+       <view class="content-title">{{item.name}}</view>
+       <view class="content-main">
+         <view class="text">裁判文书号</view>
+         <view >{{item.courtCaseNumber}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">案由</view>
+         <view >{{item.causeOfAction}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">审结日期</view>
+         <view >{{item.courtDecisionDate}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">案件身份</view>
+         <view >{{item['@type'][0].partyRoleName}}{{item['@type'][0].partyName}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">文书类型</view>
+         <view >{{item.courtCaseType}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">法院名称</view>
+         <view >{{item.courthouseName}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">法院所在地</view>
+         <view >{{item.courthouseLocation}}</view>
+       </view>
+       <view class="content-main">
+         <view class="text">审判程序</view>
+         <view >{{item.courtCaseStep}}</view>
+       </view>
+       <view class="split-line-bt"></view>
+      </view>       
+    </view>
+    <view wx:if="{{!lawInfo.length}}" class="weui-loadmore .weui-loadmore_line">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+    </view>
+  </view> -->
+</view>
